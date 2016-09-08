@@ -11,6 +11,8 @@ from django.conf import settings
 
 from .models import Photo
 
+from booth import mosaic
+
 def index(request):
     context = {}
     return render(request, 'index.html', context)
@@ -86,7 +88,6 @@ def get_media(request):
 
 def get_raw_media(request):
     user = request.user
-    photo_count = 0
 
     if user.is_authenticated:
         if user.social_auth.filter(provider='instagram'):
@@ -112,3 +113,12 @@ def get_raw_media(request):
 
 
     return JsonResponse({'error':'unauthenticated user'})
+
+def create_mosaic(request):
+    img_path = os.path.join(settings.MEDIA_ROOT, 'uploads', 'virginia_photographers_green_screen.jpg')
+    tiles_path = os.path.join(settings.MEDIA_ROOT, 'photos')
+    print(img_path)
+    print(tiles_path)
+    mosaic.mosaic(img_path, tiles_path)
+
+    return HttpResponse('mosaic created')
