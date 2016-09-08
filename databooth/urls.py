@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', booth.views.index, name='index'),
     url(r'^validate_code/$', booth.views.validate_code, name='validate_code'),
     url(r'^get_media/$', booth.views.get_media, name='get_media'),
+    url(r'^get_raw_media/$', booth.views.get_raw_media, name='get_raw_media'),
     url(r'^photo/(?P<code>[-\w\d]+)$', booth.views.photo, name='photo'),
     url('^', include('django.contrib.auth.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
