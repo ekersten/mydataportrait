@@ -1,0 +1,53 @@
+@import url('bootstrap.min.css');
+@import url('bootstrap-theme.min.css');
+@import url('fonts.css');
+
+h1 {
+    font-family: 'Verlag';
+    font-weight: 900;
+    color: #0073c1;
+    border-bottom: 4px solid #0073c1;
+    padding: 0 0 .2em;
+    display: inline-block;
+}
+
+footer {
+    background: #0073c1;
+    padding: 4em;
+    margin-top: 4em;
+}
+
+form.code_form {
+    text-align: center;
+    margin: 4em 0;
+}
+
+form.code_form label {
+    font-family: Verlag;
+    color: #0073c1;
+    display: block;
+    font-size: 2em;
+}
+
+form.code_form input {
+    font-family: Verlag;
+    border: 2px solid #0073c1;
+    color: #0073c1;
+    font-size: 1.5em;
+    text-align: center;
+    padding: .5em;
+    width: 15em;
+    text-transform: uppercase;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.button {
+    background: #0073c1;
+    padding: .3em .6em;
+    color: white;
+    font-family: Verlag;
+    font-weight: 300;
+    font-size: 2em;
+    border: none;
+}

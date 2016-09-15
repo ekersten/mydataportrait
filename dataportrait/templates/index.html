@@ -1,1 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>SnapShot Booth</h1>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <form action="" class="code_form">
+                <label for="code">Please enter your code</label>
+                <input type="text" name="code" id="code" maxlength="4" class="center-block">
+                <button class="button">Next</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center"><img src="{% static 'img/logo2.jpg' %}" alt="Wunderman"></div>
+    </div>
+{% endblock %}
