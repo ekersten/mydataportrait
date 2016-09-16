@@ -13,12 +13,13 @@ def picture(request):
     context = Context({})
 
     code = request.POST.get('code', None)
+    code = str(code).lower()
 
     if code is not None:
-         try:
-             photo = Photo.objects.get(code=code)
-             context['photo'] = photo
-             return render(request, 'photo.html', context)
-         except Photo.DoesNotExist:
-             context['error'] = True
-             return render(request, 'photo.html', context)
+        try:
+            photo = Photo.objects.get(code=code)
+            context['photo'] = photo
+        except Photo.DoesNotExist:
+            context['error'] = True
+
+        return render(request, 'photo.html', context)

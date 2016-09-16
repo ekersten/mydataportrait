@@ -11,12 +11,26 @@
     <div class="row">
         <div class="col-xs-12 text-center">
             <h3>Is this you?</h3>
-            <img src="{{ photo.url }}" class="img-responsive">
+            {% if photo.image %}
+            <img src="{{ photo.image.url }}" width="500">
+            {% else %}
+            <h3 class="warning">Image not found!</h3>
+            {% endif %}
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12 text-center">
-            <button class="button yes_no">Yes</button> <button class="button yes_no">No</button>
+            {% if photo and photo.image %}
+                <div class="yes_no_actions">
+                    <a href="#" class="button yes_no yes">Yes</button> <a href="{% url 'booth:index' %}" class="button yes_no">No</a>
+                </div>
+                <div class="social_login hidden">
+                    <a href="{% url 'social:begin' 'facebook' %}" class="button">Login with Facebook</a>
+                </div>
+
+            {% else %}
+                <a href="{% url 'booth:index' %}" class="button">Go Back</a>
+            {% endif %}
         </div>
     </div>
     {% endif %}
@@ -29,4 +43,8 @@
             </div>
         </div>
     {% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/photo.js' %}"></script>
 {% endblock %}
