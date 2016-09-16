@@ -9,7 +9,8 @@
 </div>
     <div class="row">
         <div class="col-xs-12 text-center">
-            <form action="" class="code_form">
+            <form action="{% url 'booth:picture' %}" class="code_form" method="post">
+                {% csrf_token %}
                 <label for="code">Please enter your code</label>
                 <input type="text" name="code" id="code" maxlength="4" class="center-block">
                 <button class="button">Next</button>

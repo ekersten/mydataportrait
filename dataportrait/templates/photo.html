@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>SnapShot Booth</h1>
+    </div>
+</div>
+    {% if photo %}
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <h3>Is this you?</h3>
+            <img src="{{ photo.url }}" class="img-responsive">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <button class="button yes_no">Yes</button> <button class="button yes_no">No</button>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <h3 class="warning">Code does not exist.</h3>
+                <a href="{% url 'booth:index' %}" class="button">Go Back</a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -50,4 +50,19 @@ form.code_form input {
     font-weight: 300;
     font-size: 2em;
     border: none;
+    text-decoration: none;
+}
+
+a.button:hover {
+    color: white;
+    text-decoration: none;
+}
+
+a.button:active {
+    color: white;
+    text-decoration: none;
+}
+
+.warning {
+    color: red;
 }
