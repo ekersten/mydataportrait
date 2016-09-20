@@ -42,6 +42,8 @@ INSTALLED_APPS = [
 INSTALLED_APPS += [
     'social.apps.django_app.default',
     'booth',
+    'constance',
+    'constance.backends.database',
 ]
 
 MIDDLEWARE = [
@@ -148,3 +150,10 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = []
 # Instagram login config
 SOCIAL_AUTH_INSTAGRAM_KEY = 'b517bfaa2926436aad7b186509b5131d'
 SOCIAL_AUTH_INSTAGRAM_SECRET = '88b9ab6a20674c7f955fbe1aa06e1900'
+
+# Constance config
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_CONFIG = {
+    'color': ('00ff00', 'Target Color', str),
+    'tolerance': (10, 'Tolerance', int)
+}
