@@ -85,7 +85,7 @@ a.button:active {
 
 .wrapper {
     min-height: 100%;
-    height: auto important!;
+    height: auto !important;
     height: 100%;
     maring: 0 auto -155px;
 }
