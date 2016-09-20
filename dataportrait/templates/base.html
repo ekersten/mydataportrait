@@ -12,19 +12,21 @@
     <title>SnapShot Booth</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <header class="row">
-            <div class="col-xs-12">
-                <div class="logo"><img src="{% static 'img/logo.jpg' %}" alt="Wunderman"></div>
-            </div>
-        </header>
-        {% block content %}
-        default content
-        {% endblock %}
-        <footer class="row">
-
-        </footer>
+    <div id="wrap">
+        <div id="main" class="container-fluid wrapper">
+            <header class="row">
+                <div class="col-xs-12">
+                    <div class="logo"><img src="{% static 'img/logo.jpg' %}" alt="Wunderman"></div>
+                </div>
+            </header>
+            {% block content %}
+            default content
+            {% endblock %}
+        </div>
     </div>
+    <footer class="footer">
+        asdasda
+    </footer>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     {% block extra_scripts %}
     {% endblock %}
