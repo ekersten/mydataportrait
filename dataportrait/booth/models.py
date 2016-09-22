@@ -39,7 +39,7 @@ class Photo(models.Model):
             if crop_type == 'top':
                 box = (0, 0, img.size[0], size[1])
             elif crop_type == 'middle':
-                box = (0, (img.size[1] - size[1]) / 2, img.size[0], (img.size[1] + size[1]) / 2)
+                box = (0, (img.size[1] - size[1]) // 2, img.size[0], (img.size[1] + size[1]) // 2)
             elif crop_type == 'bottom':
                 box = (0, img.size[1] - size[1], img.size[0], img.size[1])
             else:
@@ -52,7 +52,7 @@ class Photo(models.Model):
             if crop_type == 'top':
                 box = (0, 0, size[0], img.size[1])
             elif crop_type == 'middle':
-                box = ((img.size[0] - size[0]) / 2, 0, (img.size[0] + size[0]) / 2, img.size[1])
+                box = ((img.size[0] - size[0]) // 2, 0, (img.size[0] + size[0]) // 2, img.size[1])
             elif crop_type == 'bottom':
                 box = (img.size[0] - size[0], 0, img.size[0], img.size[1])
             else:
