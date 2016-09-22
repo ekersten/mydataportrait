@@ -1,3 +1,7 @@
+from random import sample
+from string import digits
+from string import ascii_lowercase
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import resolve
@@ -45,3 +49,31 @@ def picture_generator(request, code, network):
                 context['error'] = True
 
             return render(request, 'photo_generator.html', context)
+
+
+def random_codes(request):
+    max_codes = 2000
+    current_codes = Photo.objects.count()
+    if current_codes< max_codes:
+        missing_codes = max_codes - current_codes
+        chars = digits + ascii_lowercase
+
+        codes_list = []
+        while len(codes_list) < missing_codes:
+            s = ''.join(sample(chars, 4))
+            if s not in codes_list:
+                codes_list.append(s)
+
+        print(codes_list)
+
+        for code in codes_list:
+            print('Crating: {0}'.format(code))
+            try:
+                p = Photo(code=code, image='')
+                p.save()
+            except Exception as ex:
+                print('Error type ({1}): {0}'.format(ex.message, type(ex)))
+
+        return HttpResponse('Created {0} codes'.format(missing_codes))
+    else:
+        return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
