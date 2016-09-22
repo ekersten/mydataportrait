@@ -1,4 +1,6 @@
 from __future__ import unicode_literals
+import os
+import shutil
 from django.db import models
 from django.conf import settings
 
@@ -16,8 +18,8 @@ class Photo(models.Model):
             return u''
 
     def save(self, *args, **kwargs):
-        if not self.id and not self.image:
-            return
+        # if not self.id and not self.image:
+        #     return
 
         super(Photo, self).save(*args, **kwargs)
 
@@ -61,6 +63,16 @@ class Photo(models.Model):
                              Image.ANTIALIAS)
             # If the scale is the same, we do not need to crop
         img.save(self.image.path)
+
+        # create directory for storing code images
+        target_dir = os.path.join(settings.MEDIA_ROOT, 'uploads', self.code)
+        if not os.path.exists(target_dir):
+            os.makedirs(target_dir)
+
+        # copy image with code name to target directory
+        image_name, image_ext = os.path.splitext(self.image.path)
+
+        shutil.copyfile(self.image.path, target_dir + os.sep + self.code + '_base' + image_ext)
 
 
     image_tag.short_description = 'Image'
