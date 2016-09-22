@@ -33,8 +33,7 @@ class Photo(models.Model):
 
         # The image is scaled/cropped vertically or horizontally depending on the ratio
         if ratio > img_ratio:
-            img = img.resize((size[0], size[0] * img.size[1] // img.size[0]),
-                             Image.ANTIALIAS)
+            img = img.resize((size[0], size[0] * img.size[1] // img.size[0]), Image.ANTIALIAS)
             # Crop in the top, middle or bottom
             if crop_type == 'top':
                 box = (0, 0, img.size[0], size[1])
@@ -46,8 +45,7 @@ class Photo(models.Model):
                 raise ValueError('ERROR: invalid value for crop_type')
             img = img.crop(box)
         elif ratio < img_ratio:
-            img = img.resize((size[1] * img.size[0] / img.size[1], size[1]),
-                             Image.ANTIALIAS)
+            img = img.resize((size[1] * img.size[0] // img.size[1], size[1]), Image.ANTIALIAS)
             # Crop in the top, middle or bottom
             if crop_type == 'top':
                 box = (0, 0, size[0], img.size[1])
