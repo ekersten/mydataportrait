@@ -77,3 +77,6 @@ def random_codes(request):
         return HttpResponse('Created {0} codes'.format(missing_codes))
     else:
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
+
+def get_data(request):
+    pass
