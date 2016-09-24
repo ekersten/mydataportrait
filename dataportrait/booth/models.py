@@ -74,3 +74,6 @@ class Photo(models.Model):
 
     image_tag.short_description = 'Image'
     image_tag.allow_tags = True
+
+    def __str__(self):
+        return self.code

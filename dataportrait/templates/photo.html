@@ -12,7 +12,7 @@
         <div class="col-xs-12 text-center">
             <h3>Is this you?</h3>
             {% if photo.image %}
-            <img src="{{ photo.image.url }}" width="500">
+            <img src="{{ photo.image.url }}" class="chroma_image" width="400">
             {% else %}
             <h3 class="warning">Image not found!</h3>
             {% endif %}
@@ -26,6 +26,7 @@
                 </div>
                 <div class="social_login hidden">
                     <a href="{% url 'social:begin' 'facebook' %}?next=/photo/{{ photo.code }}/facebook" class="button">Login with Facebook</a>
+                    <a href="{% url 'social:begin' 'linkedin-oauth2' %}?next=/photo/{{ photo.code }}/linkedin" class="button">Login with LinkedIn</a>
                 </div>
 
             {% else %}

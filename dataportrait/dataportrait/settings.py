@@ -138,7 +138,7 @@ LOGIN_REDIRECT_URL = '/'
 # Python Social Auth Config
 AUTHENTICATION_BACKENDS = (
     'social.backends.facebook.FacebookOAuth2',
-    'social.backends.instagram.InstagramOAuth2',
+    'social.backends.linkedin.LinkedinOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
@@ -147,9 +147,9 @@ SOCIAL_AUTH_FACEBOOK_KEY = '333591750319189'
 SOCIAL_AUTH_FACEBOOK_SECRET = '306aaa17fd4397793de79ac26cbe5d23'
 SOCIAL_AUTH_FACEBOOK_SCOPE = []
 
-# Instagram login config
-SOCIAL_AUTH_INSTAGRAM_KEY = 'b517bfaa2926436aad7b186509b5131d'
-SOCIAL_AUTH_INSTAGRAM_SECRET = '88b9ab6a20674c7f955fbe1aa06e1900'
+# LinkedIn login config
+SOCIAL_AUTH_LINKEDIN_OAUTH2_KEY = '78kmpzob0bmt7w'
+SOCIAL_AUTH_LINKEDIN_OAUTH2_SECRET = 'BW9MemExudX0Robq'
 
 # Constance config
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'

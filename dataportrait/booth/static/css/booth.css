@@ -15,6 +15,12 @@ h1 {
     display: inline-block;
 }
 
+h3 {
+    font-family: 'Verlag';
+    color: #0073c1;
+    font-size: 2.5em;
+}
+
 form.code_form {
     text-align: center;
     margin: 4em 0;
@@ -50,12 +56,29 @@ form.code_form input {
 }
 
 .footer {
-    background: #0073c1;
+    background: #005187;
     position: relative;
     margin-top: -150px;
     height: 150px;
     clear: both;
     padding-top: 20px;
+}
+
+.footer .icon {
+    margin: 0 .5em;
+}
+
+.footer .text {
+    color: #1793d1;
+    font-family: Verlag;
+    font-size: .85em;
+    text-align: center;
+    line-height: 23px;
+}
+
+.footer .text a {
+    text-decoration: underline;
+    color: #73bcdf;
 }
 
 .button {
@@ -88,4 +111,24 @@ a.button:active {
     height: auto !important;
     height: 100%;
     maring: 0 auto -155px;
+}
+
+.chroma_image {
+    margin: 2em 0;
+    display: inline-block;
+}
+
+.yes_no_actions, .social_login {
+    margin: 1.5em 0 ;
+}
+
+.yes_no_actions a {
+    margin: 0 1em;
+    min-width: 3.5em;
+    display: inline-block;
+}
+
+.social_login .button {
+    font-size: 1.5em;
+    margin: 0 .8em;
 }
