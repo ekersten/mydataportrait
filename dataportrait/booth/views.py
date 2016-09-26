@@ -167,11 +167,15 @@ def get_network_data(request):
 
 
 def sanitize_social_text(social_text, banned_words=[]):
+    # remove line feeds, carriage returns and double spaces
     social_text = social_text.replace('\n', ' ').replace('\r', '').replace('  ', ' ')
+    # remove surrounding whitespace
     social_text = social_text.strip()
+    # add ending period if missing
     if social_text[-1:] is not '.':
         social_text += '.'
 
+    # remove banned words ie: the username
     for word in banned_words:
         social_text = social_text.replace(word, '')
 
