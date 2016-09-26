@@ -9,9 +9,12 @@
 
     <link rel="stylesheet" href="{% static 'css/booth.css' %}">
 
-    <title>SnapShot Booth</title>
+    <title>Wunderman DataBooth</title>
 </head>
 <body>
+    {% block body_scripts%}
+    {% endblock %}
+    
     <div id="wrap">
         <div id="main" class="container-fluid wrapper">
             <header class="row">
@@ -28,13 +31,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-md-2 col-md-offset-1"><img src="{% static 'img/logo-footer.jpg' %}" alt="Wunderman"></div>
-                <div class="col-xs-12 col-md-6 text">A member of WPP Group. <a href="#">Privacy statement</a> &copy; 2016 Wunderman. All Rights Reserved</div>
+                <div class="col-xs-12 col-md-6 text">A member of WPP Group. <a href="http://www.wunderman.com/privacy-policy">Privacy statement</a> &copy; 2016 Wunderman. All Rights Reserved</div>
                 <div class="col-xs-12 col-md-3">
-                    <a href="#"><img src="{% static 'img/twitter-icon.jpg' %}" alt="Twitter" class="icon"></a>
-                    <a href="#"><img src="{% static 'img/facebook-icon.jpg' %}" alt="Facebook" class="icon"></a>
-                    <a href="#"><img src="{% static 'img/google-icon.jpg' %}" alt="Google Plus" class="icon"></a>
-                    <a href="#"><img src="{% static 'img/linkedin-icon.jpg' %}" alt="LinkedIn" class="icon"></a>
-                    <a href="#"><img src="{% static 'img/instagram-icon.jpg' %}" alt="Instagram" class="icon"></a>
+                    <a href="https://twitter.com/wunderman"><img src="{% static 'img/twitter-icon.jpg' %}" alt="Twitter" class="icon"></a>
+                    <a href="https://www.facebook.com/Wunderman"><img src="{% static 'img/facebook-icon.jpg' %}" alt="Facebook" class="icon"></a>
+                    <a href="https://plus.google.com/116596930493913398261"><img src="{% static 'img/google-icon.jpg' %}" alt="Google Plus" class="icon"></a>
+                    <a href="https://www.linkedin.com/company/wunderman"><img src="{% static 'img/linkedin-icon.jpg' %}" alt="LinkedIn" class="icon"></a>
+                    <a href="https://www.instagram.com/wundermangram/"><img src="{% static 'img/instagram-icon.jpg' %}" alt="Instagram" class="icon"></a>
                 </div>
             </div>
         </div>

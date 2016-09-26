@@ -1,4 +1,5 @@
 import portrait
+import os
 
 croma = 'test/img/XX11.jpg'
 value = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
@@ -74,6 +75,7 @@ value = ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliqu
 		"Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
 		"Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
 		).upper()
-portrait.onUpload('XX11', 'test/img/')
-portrait.onRequest('XX11', 'test/img/', value)
-portrait.joinLayers('XX11', 'test/img/')
+absPath = os.path.dirname(os.path.realpath(__file__)) + '/test/img/'
+portrait.onUpload('XX14', absPath)
+portrait.onRequest('XX14', absPath, value)
+portrait.joinLayers('XX14', absPath)
