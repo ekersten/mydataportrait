@@ -69,7 +69,7 @@ def random_codes(request):
         for code in codes_list:
             print('Crating: {0}'.format(code))
             try:
-                p = Photo(code=code, image='')
+                p = Photo(code=code)
                 p.save()
             except Exception as ex:
                 print('Error type ({1}): {0}'.format(ex.message, type(ex)))
@@ -77,6 +77,7 @@ def random_codes(request):
         return HttpResponse('Created {0} codes'.format(missing_codes))
     else:
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
+
 
 def get_data(request):
     pass
