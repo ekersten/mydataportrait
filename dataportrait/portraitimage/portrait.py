@@ -2,11 +2,12 @@ from portraitimage.lib import layer1, layer2, layer3, layer4, baseLayer, Selecti
 from PIL import ImageFont, Image, ImageEnhance
 import threading
 import os
+from django.conf import settings
 
 
 def onUpload(code, folder):
     print("On upload")
-    cromaFile = folder + "/" + code + "/" + code + "_base.jpg"
+    cromaFile = os.path.join(folder, code, code + '_base.jpg')
     im = Image.open(cromaFile).convert('RGBA')
 
     lock = threading.Lock()
@@ -18,7 +19,7 @@ def onUpload(code, folder):
 
 def onRequest(code, folder, text):
     print("On request")
-    cromaFile = folder + "/" + code + "/" + code + "_base.jpg"
+    cromaFile = os.path.join(folder, code, code + '_base.jpg')
     im = Image.open(cromaFile).convert('RGBA')
 
     lock = threading.Lock()
@@ -73,14 +74,15 @@ def createCromaSelection(image):
     cromaSelection.invert()
     return cromaSelection
 
+
 def  createGrayScale(image, layerPath, lock):
     layerThread = baseLayer.baseThread('IDBase', lock , image.copy(), layerPath)
     layerThread.start()
     return layerThread
 
+
 def createLayer1(lock, size, layerPath, text, selection):
-    
-    fnt = ImageFont.truetype('Verlag Black.otf', 40)
+    fnt = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 40)
     fontColor = (245,242,242,128)
     lineHeight = 40
 
@@ -88,10 +90,12 @@ def createLayer1(lock, size, layerPath, text, selection):
     layerThread.start()
     return layerThread
 
+
 def createLayer2(lock, baseImage, cromaSelection, layerPath):
     layerThread = layer2.layer2Thread('ID2', lock, baseImage, cromaSelection, layerPath);
     layerThread.start()
     return layerThread
+
 
 def createLayer3(lock, grayImage, cromaSelection, layerPath, text):
     blackColor = (0,0,0,0)
@@ -100,51 +104,56 @@ def createLayer3(lock, grayImage, cromaSelection, layerPath, text):
     blackSelection = Selection.Selection.selectColor(grayImage.copy(), blackColor, tolerance)
     blackSelection.And(cromaSelection)
 
-    fnt3 = ImageFont.truetype('Verlag Black.otf', 14)
+    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 14)
     fontColor3 = (0,118,190,255)
     lineHeight3 = 14
     layerThread = layer3.layer3Thread('ID3', lock, grayImage.size, blackSelection, layerPath, text, fnt3, fontColor3,lineHeight3)
     layerThread.start()
     return layerThread
 
+
 def createLayer4(lock, grayImage, cromaSelection, layerPath, text):
-    grayColor = (140,140,140,255)
-    tolerance = 70
+    grayColor = (170, 170, 170, 255)
+    tolerance = 100
 
     graySelection = Selection.Selection.selectColor(grayImage.copy(), grayColor, tolerance)
     graySelection.And(cromaSelection)
 
-    fnt3 = ImageFont.truetype('Verlag Light.otf', 14)
+    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Light.otf'), 14)
     fontColor3 = (0,118,190,255)
     lineHeight3 = 14
     layerThread = layer3.layer3Thread('ID4', lock, grayImage.size, graySelection, layerPath, text, fnt3, fontColor3,lineHeight3)
     layerThread.start()
     return layerThread
 
+
 def createLayer5(lock, layerPath, size):
-    assetDir = os.path.dirname(os.path.realpath(__file__)) + "/img/"
+    assetDir = os.path.join(settings.STATIC_ROOT, 'img')
     files = []
-    files.append( assetDir + "headline.png" )
-    files.append( assetDir + "wunder_logo.png" )
+    files.append(os.path.join(assetDir, 'headline.png'))
+    files.append(os.path.join( assetDir, "wunder_logo.png"))
     outFile = layerPath
     layerThread = layer4.layer4Thread('ID4', lock, files, size, outFile)
     layerThread.start()
     return layerThread
 
+
 def getDataPortrait(folder, code):
-    #print(folder)
     return getLayerFilename(code, folder, 6)
+
 
 def getLayerFilename(code, folder, index = -1):
     layerFiles = []
-    layerFiles.append(folder + "/" +  code + "/" + code + "_gray.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_l1.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_l2.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_l3.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_l4.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_l5.png")
-    layerFiles.append(folder + "/" +  code + "/" + code + "_def.jpg")
-    if(index<0):
+
+    layerFiles.append(os.path.join(folder, code, code + '_gray.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_l1.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_l2.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_l3.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_l4.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_l5.png'))
+    layerFiles.append(os.path.join(folder, code, code + '_def.png'))
+
+    if index < 0:
         return layerFiles
     else:
         return layerFiles[index]

@@ -1,3 +1,4 @@
+import os
 from random import sample
 from string import digits
 from string import ascii_lowercase
@@ -7,19 +8,10 @@ from django.shortcuts import redirect
 from django.urls import resolve
 from django.template.context import Context
 from django.http import HttpResponse
-
+from django.conf import settings
 from .models import Photo
 
-#TODO: revisar si no hay una forma mas elegante para importar la libreria
-import os
-import importlib
-portraitPath = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))+ "/portraitimage/portrait.py"
-#print(portraitPath)
-spec = importlib.util.spec_from_file_location("portraitimage", portraitPath)
-portrait = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(portrait)
-
-
+from portraitimage import portrait
 
 
 def index(request):
@@ -54,18 +46,16 @@ def picture_generator(request, code, network):
         if code is not None:
             try:
                 photo = Photo.objects.get(code=code)
-                #context['photo'] = photo
                 context['network'] = network
-                #generate portrait
-                portraitRel = "/media/uploads"
-                portraitPath = os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + portraitRel
 
-                portrait.onUpload(code, portraitPath)
-                portrait.onRequest(code, portraitPath, get_data())
-                portrait.joinLayers(code, portraitPath)
+                # generate portrait
+                portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
 
+                portrait.onUpload(code, portraitRel)
+                portrait.onRequest(code, portraitRel, get_data())
+                portrait.joinLayers(code, portraitRel)
 
-                context['photo'] =  portrait.getDataPortrait(portraitRel, code)
+                context['photo'] = portrait.getDataPortrait(portraitRel, code)
             except Photo.DoesNotExist:
                 context['error'] = True
 
@@ -93,11 +83,12 @@ def random_codes(request):
                 p = Photo(code=code, image='')
                 p.save()
             except Exception as ex:
-                print('Error type ({1}): {0}'.format(ex.message, type(ex)))
+                print('Error type ({0})'.format(type(ex)))
 
         return HttpResponse('Created {0} codes'.format(missing_codes))
     else:
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
+
 
 def get_data():
     return ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
