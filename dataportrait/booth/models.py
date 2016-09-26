@@ -23,6 +23,9 @@ class Photo(models.Model):
 
         super(Photo, self).save(*args, **kwargs)
 
+        if not self.image:
+            return
+
         img = Image.open(self.image)
         size = (900,900)
         crop_type = 'middle'
