@@ -1,3 +1,4 @@
+import os
 from random import sample
 from string import digits
 from string import ascii_lowercase
@@ -7,8 +8,10 @@ from django.shortcuts import redirect
 from django.urls import resolve
 from django.template.context import Context
 from django.http import HttpResponse
-
+from django.conf import settings
 from .models import Photo
+
+from portraitimage import portrait
 
 
 def index(request):
@@ -43,8 +46,17 @@ def picture_generator(request, code, network):
         if code is not None:
             try:
                 photo = Photo.objects.get(code=code)
-                context['photo'] = photo
                 context['network'] = network
+
+                # generate portrait
+                portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
+
+                portrait.onUpload(code, portraitRel)
+                portrait.onRequest(code, portraitRel, get_data())
+                portrait.joinLayers(code, portraitRel)
+
+                context['photo'] = portrait.getDataPortrait(portraitRel, code)
+                context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
             except Photo.DoesNotExist:
                 context['error'] = True
 
@@ -72,11 +84,84 @@ def random_codes(request):
                 p = Photo(code=code, image='')
                 p.save()
             except Exception as ex:
-                print('Error type ({1}): {0}'.format(ex.message, type(ex)))
+                print('Error type ({0})'.format(type(ex)))
 
         return HttpResponse('Created {0} codes'.format(missing_codes))
     else:
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
 
-def get_data(request):
-    pass
+
+def get_data():
+    return ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
+            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
+            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
+            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
+            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
+            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
+            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
+            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
+            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
+            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
+            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
+            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
+            ).upper()

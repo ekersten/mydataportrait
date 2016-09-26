@@ -1,18 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block body_scripts %}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=330530470625317";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+{% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-xs-12 text-center">
-        <h1>SnapShot Booth</h1>
+        <h1>Wunderman DataBooth</h1>
     </div>
 </div>
-    {% if photo %}
+    {% if photo_path %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <img src="{% static 'img/join.png' %}" class="chroma_image" width="400">
+            <img src="{{ photo_path }}" class="chroma_image" width="400">
         </div>
     </div>
+    <ul class="row share">
+        <li class="row facebook">
+            <div class="fb-share-button" data-href="http://staging.wundermandatabooth.com" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
+        </li>
+        <li class="row linkedin">
+            <script type="IN/Share" data-url="http://stage.wundermandatabooth.com" data-counter="top"></script>
+        </li>
+        <li class="row twitter">
+            <a href="https://twitter.com/intent/tweet?button_hashtag=#WundermanDataBooth" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+        </li>
+    </ul>
     {% endif %}
 
     {% if error %}
