@@ -1,14 +1,19 @@
 import os
 from random import sample
+from random import shuffle
 from string import digits
 from string import ascii_lowercase
+import requests
+import json
 
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.urls import resolve
 from django.template.context import Context
 from django.http import HttpResponse
+from django.http import JsonResponse
 from django.conf import settings
+from django.contrib.auth import logout
 from .models import Photo
 
 from portraitimage import portrait
@@ -16,6 +21,8 @@ from portraitimage import portrait
 
 def index(request):
     context = Context({})
+    # always logout user
+    logout(request)
     return render(request, 'index.html', context)
 
 
@@ -52,7 +59,7 @@ def picture_generator(request, code, network):
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
 
                 portrait.onUpload(code, portraitRel)
-                portrait.onRequest(code, portraitRel, get_data())
+                portrait.onRequest(code, portraitRel, get_network_data(request))
                 portrait.joinLayers(code, portraitRel)
 
                 context['photo'] = portrait.getDataPortrait(portraitRel, code)
@@ -91,77 +98,81 @@ def random_codes(request):
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
 
 
-def get_data():
-    return ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut aliquet est."
-            " Sed convallis dignissim justo nec porta. Sed volutpat, purus et efficitur porta, "
-            "justo dui ornare eros, eget dictum dui massa nec massa. Nunc finibus gravida euismod. "
-            "Praesent quis dui pellentesque, egestas nibh sit amet, fermentum dolor. Donec viverra pretium elementum."
-            " Proin fermentum velit a nibh rutrum feugiat. Aliquam vehicula lorem quis justo pretium egestas. "
-            "Aliquam erat volutpat. Suspendisse vestibulum tempor dui, ac mollis dolor pellentesque et. "
-            "Vestibulum pharetra vel mauris eu egestas. Sed at placerat ligula. In hac habitasse platea dictumst. "
-            "Etiam semper sollicitudin velit et hendrerit. Mauris eu pharetra libero.Aliquam vel tortor nec urna semper aliquam. "
-            "Etiam at ante blandit, faucibus neque at, eleifend urna. Ut urna odio, tempor non ex nec, tristique volutpat sem. "
-            "Quisque libero lorem, pulvinar in faucibus non, vulputate ut elit. Phasellus scelerisque lacinia mi, ut euismod felis mollis id. "
-            "Cras pulvinar massa non ultricies ullamcorper. Mauris orci tellus, malesuada sed pellentesque rhoncus, condimentum sed sem. "
-            "Praesent nibh felis, sagittis mollis mi id, varius fermentum felis."
-            ).upper()
+def get_network_data(request):
+
+    if request.user.social_auth:
+        if request.user.social_auth.first().provider == 'linkedin-oauth2':
+            ln_token = request.user.social_auth.get(provider='linkedin-oauth2').extra_data['access_token']
+            ln_url = 'https://api.linkedin.com/v1/people/~:(headline,firstName,lastName,location,industry,summary,specialties,positions)?oauth2_access_token={0}&format=json'.format(ln_token)
+
+            ln_resp = requests.get(url=ln_url)
+            ln_data = json.loads(ln_resp.text)
+
+            ln_list = []
+
+            ln_list.append("{0} {1}".format(ln_data['firstName'], ln_data['lastName']))
+
+            if 'headline' in ln_data:
+                ln_list.append(sanitize_social_text(ln_data['headline']))
+
+            if 'industry' in ln_data:
+                ln_list.append(sanitize_social_text(ln_data['industry']))
+
+            if 'summary' in ln_data:
+                ln_list.append(sanitize_social_text(ln_data['summary']))
+
+            if 'positions' in ln_data:
+                for position in ln_data['positions']['values']:
+                    ln_list.append(sanitize_social_text(position['title']))
+                    ln_list.append(sanitize_social_text(position['summary']))
+                    ln_list.append(sanitize_social_text(position['company']['industry']))
+                    ln_list.append(sanitize_social_text(position['company']['name']))
+
+            shuffle(ln_list)
+
+            ln_text = ' '.join(ln_list)
+
+            while len(ln_text) < 7000:
+                ln_text *= 2
+
+            return ln_text
+
+        elif request.user.social_auth.first().provider == 'facebook':
+            fb_social_auth = request.user.social_auth.get(provider='facebook')
+            fb_url = 'https://graph.facebook.com/{0}/feed?access_token={1}'.format(fb_social_auth.uid, fb_social_auth.extra_data['access_token'])
+
+            fb_resp = requests.get(url=fb_url)
+            fb_data = json.loads(fb_resp.text)
+
+            full_name = request.user.get_full_name()
+
+            fb_list = []
+            fb_banned_words = [full_name]
+
+            for post in fb_data['data']:
+                if 'story' in post:
+                    fb_list.append(sanitize_social_text(post['story'], fb_banned_words))
+
+                if 'message' in post:
+                    fb_list.append(sanitize_social_text(post['message'], fb_banned_words))
+
+            shuffle(fb_list)
+
+            fb_text = ' '.join(fb_list)
+
+            while len(fb_text) < 7000:
+                fb_text *= 2
+
+            return fb_text
+
+
+def sanitize_social_text(social_text, banned_words=[]):
+    social_text = social_text.replace('\n', ' ').replace('\r', '').replace('  ', ' ')
+    social_text = social_text.strip()
+    if social_text[-1:] is not '.':
+        social_text += '.'
+
+    for word in banned_words:
+        social_text = social_text.replace(word, '')
+
+    return social_text
