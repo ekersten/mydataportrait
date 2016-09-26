@@ -56,6 +56,7 @@ def picture_generator(request, code, network):
                 portrait.joinLayers(code, portraitRel)
 
                 context['photo'] = portrait.getDataPortrait(portraitRel, code)
+                context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
             except Photo.DoesNotExist:
                 context['error'] = True
 

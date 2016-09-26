@@ -13,16 +13,17 @@
     <script src="//platform.linkedin.com/in.js" type="text/javascript"> lang: en_US</script>
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
+
 {% block content %}
 <div class="row">
     <div class="col-xs-12 text-center">
         <h1>Wunderman DataBooth</h1>
     </div>
 </div>
-    {% if photo %}
+    {% if photo_path %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <img src="{{ photo }}" class="chroma_image" width="400">
+            <img src="{{ photo_path }}" class="chroma_image" width="400">
         </div>
     </div>
     <ul class="row share">
