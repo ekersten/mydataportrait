@@ -44,10 +44,12 @@ form.code_form input {
     text-transform: uppercase;
     margin-top: 1em;
     margin-bottom: 1em;
+    max-width: 100%;
 }
 
 #wrap {
     min-height: 100%;
+    padding-bottom:20px;
 }
 
 #main {
@@ -116,6 +118,7 @@ a.button:active {
 .chroma_image {
     margin: 2em 0;
     display: inline-block;
+    max-width: 100%;
 }
 
 .yes_no_actions, .social_login {
@@ -123,7 +126,7 @@ a.button:active {
 }
 
 .yes_no_actions a {
-    margin: 0 1em;
+    margin: 10px 1em;
     min-width: 3.5em;
     display: inline-block;
 }
