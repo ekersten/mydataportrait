@@ -58,10 +58,14 @@ def picture_generator(request, code, network):
                 # generate portrait
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
 
+                print('calling onUpload')
                 portrait.onUpload(code, portraitRel)
+                print('calling onRequest')
                 portrait.onRequest(code, portraitRel, get_network_data(request))
+                print('calling joinLayers')
                 portrait.joinLayers(code, portraitRel)
 
+                print('photo complete, sending data to template')
                 context['photo'] = portrait.getDataPortrait(portraitRel, code)
                 context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
             except Photo.DoesNotExist:
