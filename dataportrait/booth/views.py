@@ -57,11 +57,11 @@ def picture_generator(request, code, network):
 
                 # generate portrait
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
-
+                network_text = get_network_data(request)
                 print('calling onUpload')
                 portrait.onUpload(code, portraitRel)
                 print('calling onRequest')
-                portrait.onRequest(code, portraitRel, get_network_data(request))
+                portrait.onRequest(code, portraitRel, network_text)
                 print('calling joinLayers')
                 portrait.joinLayers(code, portraitRel)
 
