@@ -99,15 +99,18 @@ def random_codes(request):
 
 
 def get_network_data(request):
+    print('get_network_data START')
 
     if request.user.social_auth:
+        print('user is auth')
         if request.user.social_auth.first().provider == 'linkedin-oauth2':
+            print('user has linkedin')
             ln_token = request.user.social_auth.get(provider='linkedin-oauth2').extra_data['access_token']
             ln_url = 'https://api.linkedin.com/v1/people/~:(headline,firstName,lastName,location,industry,summary,specialties,positions)?oauth2_access_token={0}&format=json'.format(ln_token)
-
+            print('fetching from linkedin')
             ln_resp = requests.get(url=ln_url)
             ln_data = json.loads(ln_resp.text)
-
+            print('linkedin data fetched. parsing...')
             ln_list = []
 
             ln_list.append("{0} {1}".format(ln_data['firstName'], ln_data['lastName']))
@@ -142,16 +145,17 @@ def get_network_data(request):
 
             while len(ln_text) < 7000:
                 ln_text *= 2
-
+            print('linkedin parsing complete. returning string')
             return ln_text
 
         elif request.user.social_auth.first().provider == 'facebook':
+            print('user has facebook')
             fb_social_auth = request.user.social_auth.get(provider='facebook')
             fb_url = 'https://graph.facebook.com/{0}/feed?access_token={1}'.format(fb_social_auth.uid, fb_social_auth.extra_data['access_token'])
-
+            print('fetching from facebook')
             fb_resp = requests.get(url=fb_url)
             fb_data = json.loads(fb_resp.text)
-
+            print('facebook data fetched. parsing...')
             full_name = request.user.get_full_name()
 
             fb_list = []
@@ -170,7 +174,7 @@ def get_network_data(request):
 
             while len(fb_text) < 7000:
                 fb_text *= 2
-
+            print('facebook parsing complete. returning string')
             return fb_text
 
 
