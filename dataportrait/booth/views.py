@@ -161,7 +161,8 @@ def get_network_data(request):
             fb_data = json.loads(fb_resp.text)
             print('facebook data fetched. parsing...')
             full_name = request.user.get_full_name()
-
+            print('full name: {0}'.format(request.user.get_full_name()))
+            print('raw_facebook_data: ' + fb_resp.text)
             fb_list = []
             fb_banned_words = [full_name]
 
