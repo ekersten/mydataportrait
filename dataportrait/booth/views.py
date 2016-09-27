@@ -123,10 +123,18 @@ def get_network_data(request):
 
             if 'positions' in ln_data:
                 for position in ln_data['positions']['values']:
-                    ln_list.append(sanitize_social_text(position['title']))
-                    ln_list.append(sanitize_social_text(position['summary']))
-                    ln_list.append(sanitize_social_text(position['company']['industry']))
-                    ln_list.append(sanitize_social_text(position['company']['name']))
+                    if 'title' in position:
+                        ln_list.append(sanitize_social_text(position['title']))
+
+                    if 'summary' in position:
+                        ln_list.append(sanitize_social_text(position['summary']))
+
+                    if 'company' in position:
+                        if 'industry' in position['company']:
+                            ln_list.append(sanitize_social_text(position['company']['industry']))
+
+                        if 'name' in position['company']:
+                            ln_list.append(sanitize_social_text(position['company']['name']))
 
             shuffle(ln_list)
 
