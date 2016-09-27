@@ -18,7 +18,7 @@ h1 {
 h3 {
     font-family: 'Verlag';
     color: #0073c1;
-    font-size: 2.5em;
+    font-size: 1.3em;
 }
 
 form.code_form {
@@ -106,6 +106,7 @@ a.button:active {
 
 .warning {
     color: red;
+    margin: 1em 0 3em;
 }
 
 .wrapper {
@@ -148,4 +149,39 @@ SOCIAL SHARES
 .share li{
     list-style: none;
     margin: 10px auto;
+}
+
+/* small media queries */
+@media (max-width: 768px) {
+    .logo {
+        text-align: center;
+    }
+
+    .yes_no_actions a {
+        margin: 10px .5em;
+    }
+
+    .footer {
+        padding-top: 5px;
+    }
+
+    .footer .line2 {
+        clear: both;
+        display: inline-block;
+    }
+
+    .footer .wunderman, .footer .social {
+        text-align: center;
+        margin: 1em 0;
+    }
+
+    .social_login .button {
+        display: inline-block;
+        clear: both;
+        margin: 0 0 1em;
+    }
+
+    .social_login .button:last-child {
+        margin-bottom: 0;
+    }
 }

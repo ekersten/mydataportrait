@@ -10,11 +10,11 @@
     {% if photo %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <h3>Is this you?</h3>
             {% if photo.image %}
-            <img src="{{ photo.image.url }}" class="chroma_image" width="400">
+                <h3 class="isthisyou">Is this you?</h3>
+                <img src="{{ photo.image.url }}" class="chroma_image" width="400">
             {% else %}
-            <h3 class="warning">Image not found!</h3>
+                <h3 class="warning">The image has not been uploaded yet. Please try again in 5 minutes.</h3>
             {% endif %}
         </div>
     </div>
@@ -39,7 +39,7 @@
     {% if error %}
         <div class="row">
             <div class="col-xs-12 text-center">
-                <h3 class="warning">Code does not exist.</h3>
+                <h3 class="warning">Sorry, but the code you entered is invalid. Please check your code and try again, or have your photo retaken at the Wunderman DataBooth.</h3>
                 <a href="{% url 'booth:index' %}" class="button">Go Back</a>
             </div>
         </div>
