@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'booth.middleware.auth_canceled_middleware.BoothAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'dataportrait.urls'
