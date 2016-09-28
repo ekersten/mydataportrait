@@ -94,3 +94,6 @@ ENV/
 *.sqlite3
 media/
 static/
+
+#DataPortrait stuff
+dataportrati/dataportrait/settings.py

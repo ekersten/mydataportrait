@@ -82,8 +82,8 @@ def  createGrayScale(image, layerPath, lock):
 
 
 def createLayer1(lock, size, layerPath, text, selection):
-    fnt = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 40)
-    fontColor = (245,242,242,128)
+    fnt = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 45)
+    fontColor = (219,219,219,255)
     lineHeight = 40
 
     layerThread = layer1.layer1Thread('ID1', lock, size, layerPath, text, fnt, fontColor, lineHeight, selection);
@@ -115,11 +115,12 @@ def createLayer3(lock, grayImage, cromaSelection, layerPath, text):
 def createLayer4(lock, grayImage, cromaSelection, layerPath, text):
     grayColor = (170, 170, 170, 255)
     tolerance = 100
+    
 
     graySelection = Selection.Selection.selectColor(grayImage.copy(), grayColor, tolerance)
     graySelection.And(cromaSelection)
 
-    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Light.otf'), 14)
+    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Light.otf'), 12)
     fontColor3 = (0,118,190,255)
     lineHeight3 = 14
     layerThread = layer3.layer3Thread('ID4', lock, grayImage.size, graySelection, layerPath, text, fnt3, fontColor3,lineHeight3)
@@ -130,7 +131,7 @@ def createLayer4(lock, grayImage, cromaSelection, layerPath, text):
 def createLayer5(lock, layerPath, size):
     assetDir = os.path.join(settings.STATIC_ROOT, 'img')
     files = []
-    files.append(os.path.join(assetDir, 'headline.png'))
+    files.append(os.path.join(assetDir, 'tagline.png'))
     files.append(os.path.join( assetDir, "wunder_logo.png"))
     outFile = layerPath
     layerThread = layer4.layer4Thread('ID4', lock, files, size, outFile)

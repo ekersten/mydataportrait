@@ -23,13 +23,13 @@ class layer4Thread (threading.Thread):
         headline = self.files[0]
         img = Image.open(headline, 'r')
         img_w, img_h = img.size
-        offset = ((self.size[0] - img_w) // 2, 80)
+        offset = ((self.size[0] - img_w) // 2, 38)
         background.paste(img, offset)
         
         logo = self.files[1]
         img = Image.open(logo, 'r')
         img_w, img_h = img.size
-        offset = ((self.size[0] - img_w) - 20, (self.size[1] - img_h)//2)
+        offset = ((self.size[0] - img_w), (self.size[1] - img_h))
         background.paste(img, offset)
         background.save(self.layerFile)
 

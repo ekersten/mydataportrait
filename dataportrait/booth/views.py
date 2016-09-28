@@ -57,6 +57,7 @@ def picture_generator(request, code, network):
 
                 # generate portrait
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
+
                 network_text = get_network_data(request)
                 if len(network_text) <= 0:
                     context['no_content_error'] = True
