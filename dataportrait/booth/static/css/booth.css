@@ -8,16 +8,16 @@ html, body {
 
 h1 {
     font-family: 'Verlag';
-    font-weight: 900;
-    color: #0073c1;
-    border-bottom: 4px solid #0073c1;
+    font-weight: bold;
+    color: #0076be;
+    border-bottom: 4px solid #0076be;
     padding: 0 0 .2em;
     display: inline-block;
 }
 
 h3 {
     font-family: 'Verlag';
-    color: #0073c1;
+    color: #0076be;
     font-size: 1.3em;
 }
 
@@ -28,15 +28,15 @@ form.code_form {
 
 form.code_form label {
     font-family: Verlag;
-    color: #0073c1;
+    color: #0076be;
     display: block;
     font-size: 2em;
 }
 
 form.code_form input {
     font-family: Verlag;
-    border: 2px solid #0073c1;
-    color: #0073c1;
+    border: 2px solid #0076be;
+    color: #0076be;
     font-size: 1.5em;
     text-align: center;
     padding: .5em;
@@ -58,7 +58,7 @@ form.code_form input {
 }
 
 .footer {
-    background: #005187;
+    background: #005285;
     position: relative;
     margin-top: -150px;
     height: 150px;
@@ -84,7 +84,7 @@ form.code_form input {
 }
 
 .button {
-    background: #0073c1;
+    background: #0076be;
     padding: .3em .6em;
     color: white;
     font-family: Verlag;
@@ -153,6 +153,10 @@ SOCIAL SHARES
 
 /* small media queries */
 @media (max-width: 768px) {
+    h1 {
+        font-size: 2.2em;
+    }
+
     .logo {
         text-align: center;
     }
