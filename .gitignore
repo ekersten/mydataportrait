@@ -92,8 +92,8 @@ ENV/
 
 .idea
 *.sqlite3
-media/
-static/
+/media/
+/static/
 
 #DataPortrait stuff
 dataportrati/dataportrait/settings.py
