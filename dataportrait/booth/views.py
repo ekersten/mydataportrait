@@ -160,7 +160,7 @@ def get_network_data(request):
         elif request.user.social_auth.first().provider == 'facebook':
             print('user has facebook')
             fb_social_auth = request.user.social_auth.get(provider='facebook')
-            fb_url = 'https://graph.facebook.com/{0}/feed?access_token={1}'.format(fb_social_auth.uid, fb_social_auth.extra_data['access_token'])
+            fb_url = 'https://graph.facebook.com/v2.7/{0}/feed?access_token={1}'.format(fb_social_auth.uid, fb_social_auth.extra_data['access_token'])
             print('fetching from facebook')
             fb_resp = requests.get(url=fb_url)
             fb_data = json.loads(fb_resp.text)
