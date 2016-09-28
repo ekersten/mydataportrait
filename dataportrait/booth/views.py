@@ -58,16 +58,19 @@ def picture_generator(request, code, network):
                 # generate portrait
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
                 network_text = get_network_data(request)
-                print('calling onUpload')
-                portrait.onUpload(code, portraitRel)
-                print('calling onRequest')
-                portrait.onRequest(code, portraitRel, network_text)
-                print('calling joinLayers')
-                portrait.joinLayers(code, portraitRel)
+                if len(network_text) <= 0:
+                    context['no_content_error'] = True
+                else:
+                    print('calling onUpload')
+                    portrait.onUpload(code, portraitRel)
+                    print('calling onRequest')
+                    portrait.onRequest(code, portraitRel, network_text)
+                    print('calling joinLayers')
+                    portrait.joinLayers(code, portraitRel)
 
-                print('photo complete, sending data to template')
-                context['photo'] = portrait.getDataPortrait(portraitRel, code)
-                context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
+                    print('photo complete, sending data to template')
+                    context['photo'] = portrait.getDataPortrait(portraitRel, code)
+                    context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
             except Photo.DoesNotExist:
                 context['error'] = True
 
@@ -146,6 +149,8 @@ def get_network_data(request):
             shuffle(ln_list)
 
             ln_text = ' '.join(ln_list)
+            if len(ln_text) <= 0:
+                return ln_text
 
             while len(ln_text) < 7000:
                 ln_text *= 2
@@ -176,6 +181,9 @@ def get_network_data(request):
             shuffle(fb_list)
 
             fb_text = ' '.join(fb_list)
+
+            if len(fb_text) <= 0:
+                return fb_text
 
             while len(fb_text) < 7000:
                 fb_text *= 2

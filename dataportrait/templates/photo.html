@@ -22,11 +22,15 @@
         <div class="col-xs-12 text-center">
             {% if photo and photo.image %}
                 <div class="yes_no_actions">
-                    <a href="#" class="button yes_no yes">Yes</button> <a href="{% url 'booth:index' %}" class="button yes_no">No</a>
+                    <a href="javascript:void(0);" class="button yes_no yes">Yes</button> <a href="javascript:void(0);" class="button yes_no no">No</a>
                 </div>
                 <div class="social_login hidden">
                     <a href="{% url 'social:begin' 'facebook' %}?next=/photo/{{ photo.code }}/facebook" class="button">Login with Facebook</a>
                     <a href="{% url 'social:begin' 'linkedin-oauth2' %}?next=/photo/{{ photo.code }}/linkedin" class="button">Login with LinkedIn</a>
+                </div>
+                <div class="is_not_me hidden">
+                    <h3 class="warning">Please return to the Wunderman DataBooth and talk to the photographer.</h3>
+                    <a href="{% url 'booth:index' %}" class="button">Go Back</a>
                 </div>
 
             {% else %}

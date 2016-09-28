@@ -39,10 +39,10 @@
     </ul>
     {% endif %}
 
-    {% if error %}
+    {% if no_content_error %}
         <div class="row">
             <div class="col-xs-12 text-center">
-                <h3 class="warning">Code does not exist.</h3>
+                <h3 class="warning">Sorry, but you do not have enough content on your profile to create a #WunderDataPortrait.</h3>
                 <a href="{% url 'booth:index' %}" class="button">Go Back</a>
             </div>
         </div>
