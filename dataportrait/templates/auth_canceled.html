@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>#WunderDataPortrait</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h3 class="warning">You canceled the authentication process. Please try again.</h3>
+        <a href="{% url 'booth:index' %}" class="button">Go Back</a>
+    </div>
+</div>
+{% endblock %}

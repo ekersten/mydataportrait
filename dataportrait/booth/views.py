@@ -105,6 +105,11 @@ def random_codes(request):
         return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
 
 
+def authcancel(request):
+    context = Context({})
+    return render(request, 'auth_canceled.html', context)
+
+
 def get_network_data(request):
     print('get_network_data START')
 
