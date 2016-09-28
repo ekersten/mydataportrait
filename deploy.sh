@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "Updating from Git"
 git pull
 echo "Activating virtualenv"
@@ -8,7 +9,7 @@ pip install -r requirements.txt
 echo "Updating DB Schema"
 python manage.py migrate
 echo "Collecting static assets"
-python manage.py collectstatic --no-input --clear
+python manage.py collectstatic --no-input
 echo "Deactivating virtualenv"
 deactivate
 echo "Deploy complete!"
