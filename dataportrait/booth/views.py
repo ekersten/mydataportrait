@@ -63,11 +63,11 @@ def picture_generator(request, code, network):
                     context['no_content_error'] = True
                 else:
                     print('calling onUpload')
-                    portrait.onUpload(code, portraitRel)
+                    #portrait.onUpload(code, portraitRel)
                     print('calling onRequest')
-                    portrait.onRequest(code, portraitRel, network_text)
+                    #portrait.onRequest(code, portraitRel, network_text)
                     print('calling joinLayers')
-                    portrait.joinLayers(code, portraitRel)
+                    #portrait.joinLayers(code, portraitRel)
 
                     print('photo complete, sending data to template')
                     context['photo'] = portrait.getDataPortrait(portraitRel, code)

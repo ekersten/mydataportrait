@@ -82,7 +82,7 @@ def  createGrayScale(image, layerPath, lock):
 
 
 def createLayer1(lock, size, layerPath, text, selection):
-    fnt = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 45)
+    fnt = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 48)
     fontColor = (219,219,219,255)
     lineHeight = 40
 
@@ -104,7 +104,7 @@ def createLayer3(lock, grayImage, cromaSelection, layerPath, text):
     blackSelection = Selection.Selection.selectColor(grayImage.copy(), blackColor, tolerance)
     blackSelection.And(cromaSelection)
 
-    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 14)
+    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Black.otf'), 20)
     fontColor3 = (0,118,190,255)
     lineHeight3 = 14
     layerThread = layer3.layer3Thread('ID3', lock, grayImage.size, blackSelection, layerPath, text, fnt3, fontColor3,lineHeight3)
@@ -120,7 +120,7 @@ def createLayer4(lock, grayImage, cromaSelection, layerPath, text):
     graySelection = Selection.Selection.selectColor(grayImage.copy(), grayColor, tolerance)
     graySelection.And(cromaSelection)
 
-    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Light.otf'), 12)
+    fnt3 = ImageFont.truetype(os.path.join(settings.STATIC_ROOT, 'fonts', 'Verlag Light.otf'), 16)
     fontColor3 = (0,118,190,255)
     lineHeight3 = 14
     layerThread = layer3.layer3Thread('ID4', lock, grayImage.size, graySelection, layerPath, text, fnt3, fontColor3,lineHeight3)
