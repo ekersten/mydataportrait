@@ -159,4 +159,19 @@ def getLayerFilename(code, folder, index = -1):
     else:
         return layerFiles[index]
 
+def getLayerURL(code, folder, index = -1):
+    layerUrls = []
+
+    layerUrls.append(folder + "/" + code + "/" + code + '_gray.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_l1.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_l2.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_l3.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_l4.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_l5.png')
+    layerUrls.append(folder + "/" + code + "/" + code +'_def.png')
+
+    if index < 0:
+        return layerUrls
+    else:
+        return layerUrls[index]
 

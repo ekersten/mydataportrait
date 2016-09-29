@@ -23,7 +23,7 @@
     {% if photo_path %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <!--<img src="{{ photo_path }}" class="chroma_image" width="400">-->
+            <img src="{{ photo_path }}" id="wundermandataportrait" width="400">
             <div class="layers">
                 <canvas id="layer1" class="layer" width="450" height="450"></canvas>
                 <canvas id="layer4" class="layer" width="450" height="450"></canvas>
@@ -50,10 +50,10 @@
             <a href="https://twitter.com/intent/tweet?text=Check out my&hashtags=#WundermanDataPortrait" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
         </li>
         <li class="col-xs-6 col-sm-6 col-md-6  twitter">
-            <a class="button">Download</a>
+            <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>
         </li>
         <li class="col-xs-6 col-sm-6 col-md-6  twitter">
-            <a class="button">Print</a>
+            <a class="button" onclick="window.print()">Print</a>
         </li>
     </ul>
     {% endif %}

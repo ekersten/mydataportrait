@@ -92,6 +92,7 @@ form.code_form input {
     font-size: 2em;
     border: none;
     text-decoration: none;
+    cursor:pointer;
 }
 
 a.button:hover {
@@ -136,7 +137,6 @@ a.button:active {
     font-size: 1.5em;
     margin: 0 .8em;
 }
-
 /*
 SOCIAL SHARES
 */
@@ -162,6 +162,9 @@ SOCIAL SHARES
     position: absolute;
     top: 0;
     left: 0;
+}
+#wundermandataportrait{
+    display: none;
 }
 /* small media queries */
 @media (max-width: 768px) {
@@ -200,5 +203,14 @@ SOCIAL SHARES
 
     .social_login .button:last-child {
         margin-bottom: 0;
+    }
+}
+/* print only images */
+@media print {
+    #wundermandataportrait{
+        display: block;
+    }
+    * :not(#wundermandataportrait){
+        display:none;
     }
 }
