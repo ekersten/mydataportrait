@@ -13,10 +13,12 @@
     <title>#WunderDataPortrait</title>
 </head>
 <body>
+    {% block outer_content %}
+    {% endblock %}
     {% block body_scripts%}
     {% endblock %}
     
-    <div id="wrap">
+    <div id="wrap" class="hidden-print">
         <div id="main" class="container-fluid wrapper">
             <header class="row">
                 <div class="col-xs-12">
@@ -28,7 +30,7 @@
             {% endblock %}
         </div>
     </div>
-    <footer class="footer">
+    <footer class="footer hidden-print">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-md-2 col-md-offset-1 wunderman"><img src="{% static 'img/logo-footer.jpg' %}" alt="Wunderman"></div>

@@ -14,7 +14,13 @@
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 {% endblock %}
 
+{% block outer_content %}
+{# show the picture in the body to hide everything else #}
+<img src="{{ photo_path }}" class="visible-print-block">
+{% endblock %}
+
 {% block content %}
+
 <div class="row">
     <div class="col-xs-12 text-center">
         <h1>#WunderDataPortrait</h1>
@@ -23,7 +29,6 @@
     {% if photo_path %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <img src="{{ photo_path }}" id="wundermandataportrait" width="400">
             <div class="layers">
                 <canvas id="layer1" class="layer" width="450" height="450"></canvas>
                 <canvas id="layer4" class="layer" width="450" height="450"></canvas>

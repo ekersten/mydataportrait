@@ -74,12 +74,15 @@ def picture_generator(request, code, network):
                 if len(network_text) <= 0:
                     context['no_content_error'] = True
                 else:
-                    print('calling onUpload')
-                    portrait.onUpload(code, portraitRel)
-                    print('calling onRequest')
-                    portrait.onRequest(code, portraitRel, network_text)
-                    print('calling joinLayers')
-                    portrait.joinLayers(code, portraitRel)
+                    # check GET param to avoid creating image.
+                    # THIS IS ONLY FOR TESTING!!!
+                    if request.GET.get('nogen', 0) == 0:
+                        print('calling onUpload')
+                        portrait.onUpload(code, portraitRel)
+                        print('calling onRequest')
+                        portrait.onRequest(code, portraitRel, network_text)
+                        print('calling joinLayers')
+                        portrait.joinLayers(code, portraitRel)
 
                     print('photo complete, sending data to template')
                     context['photo'] = portrait.getDataPortrait(portraitRel, code)

@@ -205,12 +205,3 @@ SOCIAL SHARES
         margin-bottom: 0;
     }
 }
-/* print only images */
-@media print {
-    #wundermandataportrait{
-        display: block;
-    }
-    * :not(#wundermandataportrait){
-        display:none;
-    }
-}
