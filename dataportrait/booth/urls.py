@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^photo/$', views.picture, name='picture'),
     url(r'^auth-canceled/$', views.authcancel, name='authcancel'),
     url(r'^photo/(?P<code>[-\w\d]+)/(?P<network>[facebook|linkedin]+)$', views.picture_generator, name='picture_generator'),
+    url(r'^portrait/(?P<code>[-\w\d]+)', views.generated_portrait, name='generated_portrait'),
 ]

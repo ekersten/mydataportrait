@@ -8,7 +8,7 @@ import json
 
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.urls import resolve
+from django.urls import reverse
 from django.template.context import Context
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -42,6 +42,15 @@ def picture(request):
         return render(request, 'photo.html', context)
 
 
+def generated_portrait(request, code):
+    context = Context({
+        'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
+        'share_image': get_image_url_for_code('1234')
+    })
+    return render(request, 'generated_portrait.html', context)
+
+
+
 def picture_generator(request, code, network):
     context = Context({
         'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
@@ -49,7 +58,7 @@ def picture_generator(request, code, network):
     })
 
     if not request.user.is_authenticated():
-        return redirect(resolve('booth:index'))
+        return redirect(reverse('booth:index'))
 
     if code and network:
         code = str(code).lower()
@@ -85,6 +94,7 @@ def picture_generator(request, code, network):
                         portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',4),
                         portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',5),
                     ]
+                    context['code'] = code
             except Photo.DoesNotExist:
                 context['error'] = True
 
