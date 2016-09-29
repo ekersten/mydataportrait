@@ -72,6 +72,16 @@ def picture_generator(request, code, network):
                     print('photo complete, sending data to template')
                     context['photo'] = portrait.getDataPortrait(portraitRel, code)
                     context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
+
+                    #get layers filenames for animation
+                    print('Code: ' + code)
+                    context['layers'] = [
+                        portrait.getLayerFilename(code, settings.MEDIA_URL + 'uploads/',1),
+                        portrait.getLayerFilename(code, settings.MEDIA_URL + 'uploads/',2),
+                        portrait.getLayerFilename(code, settings.MEDIA_URL + 'uploads/',3),
+                        portrait.getLayerFilename(code, settings.MEDIA_URL + 'uploads/',4),
+                        portrait.getLayerFilename(code, settings.MEDIA_URL + 'uploads/',5),
+                    ]
             except Photo.DoesNotExist:
                 context['error'] = True
 

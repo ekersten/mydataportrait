@@ -23,7 +23,20 @@
     {% if photo_path %}
     <div class="row">
         <div class="col-xs-12 text-center">
-            <img src="{{ photo_path }}" class="chroma_image" width="400">
+            <!--<img src="{{ photo_path }}" class="chroma_image" width="400">-->
+            <div class="layers">
+                <canvas id="layer1" class="layer" width="450" height="450"></canvas>
+                <canvas id="layer4" class="layer" width="450" height="450"></canvas>
+                <canvas id="layer2" class="layer" width="450" height="450"></canvas>
+                <canvas id="layer3" class="layer" width="450" height="450"></canvas>
+                <canvas id="layer5" class="layer" width="450" height="450"></canvas>
+            </div>
+            <script>
+                {% for layer in layers %}
+                    var layer{{ forloop.counter }}Src = "{{ layer }}";
+                {% endfor %}
+            </script>
+            <script type="text/javascript" src="{% static 'js/animation.js' %}"></script>
         </div>
     </div>
     <ul class="row share">
