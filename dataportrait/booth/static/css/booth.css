@@ -151,6 +151,18 @@ SOCIAL SHARES
     margin: 10px auto;
 }
 
+/* layered animation */
+.layers{
+    position: relative;
+    width: 450px;
+    height: 450px;
+    margin: 0 auto;
+}
+.layer{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 /* small media queries */
 @media (max-width: 768px) {
     h1 {
