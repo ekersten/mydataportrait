@@ -43,7 +43,10 @@ def picture(request):
 
 
 def picture_generator(request, code, network):
-    context = Context({})
+    context = Context({
+        'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
+        'share_image': get_image_url_for_code('1234')
+    })
 
     if not request.user.is_authenticated():
         return redirect(resolve('booth:index'))
@@ -118,11 +121,22 @@ def random_codes(request):
 
 def authcancel(request):
     context = Context({})
+
     return render(request, 'auth_canceled.html', context)
+
+
+def get_image_url_for_code(code):
+    image_path = os.path.join(settings.MEDIA_ROOT, 'uploads', code, code + '_def.png')
+    if os.path.exists(image_path) and os.path.isfile(image_path):
+        return settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
+    else:
+        return ''
 
 
 def get_network_data(request):
     print('get_network_data START')
+
+    dummy_text = "Dive deep into digital at the DMA event. At Wunderman, data brings creativity to life. Get inspired by the data revolution. Find your inspiration in insight. Customer engagement begins with data. We’re in the inspiration business. Images are data, too: find out more with the click of a camera. Find inspiration in the mosaic of memories you create every day. The digital world is a platform where we can all leave our mark through innovation and motivation. Words paint a profile picture that speaks directly to us with their vivid clarity and personalized phrasing. The truest portrait is the one we never paint. See how the world sees you. Look data straight in the face. Data and digital combine in a portrait. The picture of perfection in a digital world. Go beyond the ones and twos to see the whole picture. Step back from the digital brink to glimpse your inner data. If you can see this, you’re missing the bigger picture. Your image of digital inspiration is pixelated with a mosaic of memories."
 
     if request.user.social_auth:
         print('user is auth')
@@ -165,8 +179,8 @@ def get_network_data(request):
             shuffle(ln_list)
 
             ln_text = ' '.join(ln_list)
-            if len(ln_text) <= 0:
-                return ln_text
+            if len(ln_text) == 0:
+                ln_text = dummy_text
 
             while len(ln_text) < 7000:
                 ln_text *= 2
@@ -198,8 +212,8 @@ def get_network_data(request):
 
             fb_text = ' '.join(fb_list)
 
-            if len(fb_text) <= 0:
-                return fb_text
+            if len(fb_text) == 0:
+                fb_text = dummy_text
 
             while len(fb_text) < 7000:
                 fb_text *= 2

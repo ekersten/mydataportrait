@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_header_tags %}
+<meta property="og:url" content="{{ base_url }}{{ share_image }}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="#WunderDataPortrait" />
+<meta property="og:description" content="Check out my #WunderDataPortrait #DMA2016" />
+<meta property="og:image" content="{{ base_url }}{{ share_image }}" />
+{% endblock %}
+
 {% block body_scripts %}
     <div id="fb-root"></div>
     <script>(function(d, s, id) {
@@ -47,7 +55,7 @@
             <script type="IN/Share" data-url="http://stage.wundermandatabooth.com" data-counter="top"></script>
         </li>
         <li class="col-xs-4 col-sm-4 col-md-4  twitter">
-            <a href="https://twitter.com/intent/tweet?text=Check out my&hashtags=#WundermanDataPortrait" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+            <a href="https://twitter.com/intent/tweet?text=Check out my #WunderDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
         </li>
         <li class="col-xs-6 col-sm-6 col-md-6  twitter">
             <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>
