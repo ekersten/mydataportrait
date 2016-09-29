@@ -41,13 +41,13 @@
     </div>
     <ul class="row share">
         <li class="col-xs-4 col-sm-4 col-md-4  facebook">
-            <div class="fb-share-button" data-href="http://staging.wundermandatabooth.com" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
+            <div class="fb-share-button" data-href="{{ base_url }}/portrait/{{ code }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
         </li>
         <li class="col-xs-4 col-sm-4 col-md-4 linkedin">
-            <script type="IN/Share" data-url="http://stage.wundermandatabooth.com" data-counter="top"></script>
+            <script type="IN/Share" data-url="{{ base_url }}/portrait/{{ code }}" data-counter="top"></script>
         </li>
         <li class="col-xs-4 col-sm-4 col-md-4  twitter">
-            <a href="https://twitter.com/intent/tweet?text=Check out my&hashtags=#WundermanDataPortrait" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+            <a href="https://twitter.com/intent/tweet?text=Check out my #WunderDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
         </li>
         <li class="col-xs-6 col-sm-6 col-md-6  twitter">
             <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>

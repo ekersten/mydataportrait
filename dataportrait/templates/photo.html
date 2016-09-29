@@ -29,7 +29,7 @@
                     <a href="{% url 'social:begin' 'linkedin-oauth2' %}?next=/photo/{{ photo.code }}/linkedin" class="button">Login with LinkedIn</a>
                 </div>
                 <div class="is_not_me hidden">
-                    <h3 class="warning">Please return to the Wunderman DataBooth and talk to the photographer.</h3>
+                    <h3 class="warning">Please return to the #WunderDataPortrait and talk to the photographer.</h3>
                     <a href="{% url 'booth:index' %}" class="button">Go Back</a>
                 </div>
 
@@ -43,7 +43,7 @@
     {% if error %}
         <div class="row">
             <div class="col-xs-12 text-center">
-                <h3 class="warning">Sorry, but the code you entered is invalid. Please check your code and try again, or have your photo retaken at the Wunderman DataBooth.</h3>
+                <h3 class="warning">Sorry, but the code you entered is invalid. Please check your code and try again, or have your photo retaken at the #WunderDataPortrait.</h3>
                 <a href="{% url 'booth:index' %}" class="button">Go Back</a>
             </div>
         </div>

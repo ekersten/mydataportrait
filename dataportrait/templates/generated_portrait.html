@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block extra_header_tags %}
+<meta property="og:url" content="{{ base_url }}{{ share_image }}" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="#WunderDataPortrait" />
+<meta property="og:description" content="Check out my #WunderDataPortrait #DMA2016" />
+<meta property="og:image" content="{{ base_url }}{{ share_image }}" />
+{% endblock %}
+
+{% block content %}
+    <img src="{{ base_url }}{{ share_image }}" alt="#WunderDataPortrait">
+{% endblock %}
