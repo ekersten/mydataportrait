@@ -164,9 +164,12 @@ SOCIAL SHARES
     top: 0;
     left: 0;
 }
-#wundermandataportrait{
-    display: none;
+
+.terms-and-conditions {
+    font-family: Verlag;
+    font-size: 1em;
 }
+
 /* small media queries */
 @media (max-width: 768px) {
     h1 {

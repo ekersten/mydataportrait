@@ -26,6 +26,10 @@ def index(request):
     return render(request, 'index.html', context)
 
 
+def terms_and_conditions(request):
+    context = Context({})
+    return render(request, 'terms_and_conditions.html', context)
+
 def picture(request):
     context = Context({})
 
