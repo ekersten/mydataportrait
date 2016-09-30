@@ -80,7 +80,7 @@ def picture_generator(request, code, network):
                         print('calling onUpload')
                         portrait.onUpload(code, portraitRel)
                         print('calling onRequest')
-                        portrait.onRequest(code, portraitRel, network_text)
+                        portrait.onRequest(code, portraitRel, network_text.upper())
                         print('calling joinLayers')
                         portrait.joinLayers(code, portraitRel)
 
