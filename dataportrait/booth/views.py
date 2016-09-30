@@ -34,7 +34,7 @@ def picture(request):
 
     if code is not None:
         try:
-            photo = Photo.objects.get(code=code)
+            photo = Photo.objects.get(code__iexact=code)
             context['photo'] = photo
         except Photo.DoesNotExist:
             context['error'] = True
@@ -64,7 +64,7 @@ def picture_generator(request, code, network):
         code = str(code).lower()
         if code is not None:
             try:
-                photo = Photo.objects.get(code=code)
+                photo = Photo.objects.get(code__iexact=code)
                 context['network'] = network
 
                 # generate portrait
