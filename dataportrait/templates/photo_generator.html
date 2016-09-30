@@ -44,23 +44,30 @@
             <script type="text/javascript" src="{% static 'js/animationv2.js' %}"></script>
         </div>
     </div>
-    <ul class="row share">
-        <li class="col-xs-4 col-sm-4 col-md-4  facebook">
+    <div class="row share">
+        <div class="col-xs-12 share-text">
+            Share your #WunderDataPortrait.
+        </div>
+    </div>
+    <div class="row share">
+        <div class="col-xs-4 facebook">
             <div class="fb-share-button" data-href="{{ base_url }}/portrait/{{ code }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
-        </li>
-        <li class="col-xs-4 col-sm-4 col-md-4 linkedin">
+        </div>
+        <div class="col-xs-4 linkedin">
             <script type="IN/Share" data-url="{{ base_url }}/portrait/{{ code }}" data-counter="top"></script>
-        </li>
-        <li class="col-xs-4 col-sm-4 col-md-4  twitter">
+        </div>
+        <div class="col-xs-4 twitter">
             <a href="https://twitter.com/intent/tweet?text=Check out my #WunderDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
-        </li>
-        <li class="col-xs-6 col-sm-6 col-md-6  twitter">
+        </div>
+    </div>
+    <div class="row share">
+        <div class="col-xs-6 twitter">
             <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>
-        </li>
-        <li class="col-xs-6 col-sm-6 col-md-6  twitter">
+        </div>
+        <div class="col-xs-6 twitter">
             <a class="button" onclick="window.print()">Print</a>
-        </li>
-    </ul>
+        </div>
+    </div>
     {% endif %}
 
     {% if no_content_error %}
