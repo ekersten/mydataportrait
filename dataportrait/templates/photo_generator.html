@@ -23,7 +23,7 @@
 
 <div class="row">
     <div class="col-xs-12 text-center">
-        <h1>#WunderDataPortrait</h1>
+        <h1>#MyDataPortrait</h1>
     </div>
 </div>
     {% if photo_path %}
@@ -46,7 +46,7 @@
     </div>
     <div class="row share">
         <div class="col-xs-12 share-text">
-            Share your #WunderDataPortrait.
+            Share your #MyDataPortrait.
         </div>
     </div>
     <div class="row share">
@@ -57,7 +57,7 @@
             <script type="IN/Share" data-url="{{ base_url }}/portrait/{{ code }}" data-counter="top"></script>
         </div>
         <div class="col-xs-4 twitter">
-            <a href="https://twitter.com/intent/tweet?text=Check out my #WunderDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+            <a href="https://twitter.com/intent/tweet?text=Check out my #MyDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
         </div>
     </div>
     <div class="row share">
@@ -73,7 +73,7 @@
     {% if no_content_error %}
         <div class="row">
             <div class="col-xs-12 text-center">
-                <h3 class="warning">Sorry, but you do not have enough content on your profile to create a #WunderDataPortrait.</h3>
+                <h3 class="warning">Sorry, but you do not have enough content on your profile to create a #MyDataPortrait.</h3>
                 <a href="{% url 'booth:index' %}" class="button">Go Back</a>
             </div>
         </div>
