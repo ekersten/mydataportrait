@@ -152,6 +152,10 @@ SOCIAL SHARES
     font-size: 1.5em;
 }
 
+.share .button {
+    font-size: 1.5em;
+}
+
 /* layered animation */
 .layers{
     position: relative;
