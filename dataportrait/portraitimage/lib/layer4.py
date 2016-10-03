@@ -5,6 +5,7 @@ from PIL import Image
 #process for the thread that creates the first layer
 class layer4Thread (threading.Thread):
     def __init__(self, threadID, lock, files, size, layerFile):
+        print("Creando layer5")
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.lock = lock
@@ -13,7 +14,7 @@ class layer4Thread (threading.Thread):
         self.layerFile = layerFile
 
     def run(self):
-        #print("Starting " + self.name)
+        print("Starting " + self.name)
         # Get lock to synchronize threads
         self.lock.acquire()
 

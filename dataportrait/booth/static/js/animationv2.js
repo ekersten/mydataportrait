@@ -6,31 +6,51 @@ var ctx2;
 var ctx3;
 var WIDTH = 900;
 var HEIGHT = 900;
+/* image is always square 
+if(window.innerWidth < WIDTH){
+    WIDTH = window.innerWidth;
+    HEIGHT = window.innerWidth;
+}*/
+var layerCount = 5;
+var loadedImages = 0;
 
 //first layer  
 var layer1Img = new Image();
+layer1Img.onload = synchedInit;
 layer1Img.src = layer1Src;
 var pos1 = [0, 0];
 
 //second layer
 var layer2Img = new Image();
+layer1Img.onload = synchedInit;
 layer2Img.src = layer3Src;
 var pos2 = [0, 0];
 
 //third layer
 var layer3Img = new Image();
+layer1Img.onload = synchedInit;
 layer3Img.src = layer4Src;
 var pos4 = [0, 0];
 
 //fourth layer Opacity animation
 var layer4Img = new Image();
+layer1Img.onload = synchedInit;
 layer4Img.src = layer2Src;
 var op4 = 0;
 
 //fifth layer
 var layer5Img = new Image();
+layer1Img.onload = synchedInit;
 layer5Img.src = layer5Src;
 var op5 = 0;
+
+
+function synchedInit(){
+    if(loadedImages >= layerCount){
+        init();
+    }
+    loadedImages +=1;
+}
 
 function init() {
     layer1 = document.getElementById("layer1");
@@ -127,7 +147,7 @@ function draw5() {
     if(op5 < 1.0){
         ctx5.clearRect(0, 0, WIDTH, HEIGHT);
         ctx5.globalAlpha = op5;
-        ctx5.drawImage(layer5Img, 0, 0, WIDTH, HEIGHT, 0, 0, layer5.width, layer5.height);
+        ctx5.drawImage(layer5Img, 0, 0, WIDTH, HEIGHT, 0, 0, layer1.width, layer1.height);
         op5 +=0.1;
     }
 }
