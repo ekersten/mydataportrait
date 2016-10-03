@@ -49,7 +49,8 @@ def picture(request):
 def generated_portrait(request, code):
     context = Context({
         'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
-        'share_image': get_image_url_for_code('1234')
+        'share_image': get_image_url_for_code(code),
+        'code': code
     })
     return render(request, 'generated_portrait.html', context)
 
