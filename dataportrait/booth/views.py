@@ -49,7 +49,9 @@ def picture(request):
 def generated_portrait(request, code):
     context = Context({
         'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
-        'share_image': get_image_url_for_code('1234')
+        'share_image': get_image_url_for_code(code),
+        'code': code,
+        'fb_app_id': settings.SOCIAL_AUTH_FACEBOOK_KEY
     })
     return render(request, 'generated_portrait.html', context)
 

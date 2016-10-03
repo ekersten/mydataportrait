@@ -93,14 +93,12 @@ form.code_form input {
     border: none;
     text-decoration: none;
     cursor:pointer;
+    display: inline-block;
+    min-width: 106px;
+    text-align: center;
 }
 
-a.button:hover {
-    color: white;
-    text-decoration: none;
-}
-
-a.button:active {
+a.button:hover, a.button:active, a.button:visited {
     color: white;
     text-decoration: none;
 }
@@ -153,7 +151,7 @@ SOCIAL SHARES
 }
 
 .share .button {
-    font-size: 1.5em;
+    font-size: 1.1em;
 }
 
 /* layered animation */
