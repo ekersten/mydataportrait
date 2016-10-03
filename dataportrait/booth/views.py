@@ -111,6 +111,9 @@ def picture_generator(request, code, network):
 
 
 def random_codes(request):
+    if not request.user.is_superuser:
+        return redirect(reverse('booth:index'))
+
     max_codes = 2000
     current_codes = Photo.objects.count()
     if current_codes< max_codes:
@@ -133,9 +136,23 @@ def random_codes(request):
             except Exception as ex:
                 print('Error type ({0})'.format(type(ex)))
 
-        return HttpResponse('Created {0} codes'.format(missing_codes))
+        codes = Photo.objects.all()
+        context = Context({
+            'codes': codes
+        })
+
+        context['message'] = 'Created {0} codes'.format(missing_codes)
+
+        return render(request, 'random_codes.html', context)
+
     else:
-        return HttpResponse('Already {0} codes on database. Clear from admin'.format(max_codes))
+        codes = Photo.objects.all()
+        context = Context({
+            'codes': codes
+        })
+        context['message'] = 'Already {0} codes on database. Clear from admin'.format(max_codes)
+
+        return render(request, 'random_codes.html', context)
 
 
 def authcancel(request):
