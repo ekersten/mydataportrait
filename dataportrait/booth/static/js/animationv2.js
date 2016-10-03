@@ -6,11 +6,7 @@ var ctx2;
 var ctx3;
 var WIDTH = 900;
 var HEIGHT = 900;
-/* image is always square 
-if(window.innerWidth < WIDTH){
-    WIDTH = window.innerWidth;
-    HEIGHT = window.innerWidth;
-}*/
+var padding = 20;
 var layerCount = 5;
 var loadedImages = 0;
 
@@ -70,6 +66,40 @@ function init() {
 
     layer5 = document.getElementById("layer5");
     ctx5 = layer5.getContext("2d");
+
+    /* image is always square */
+    if(window.innerWidth < 500){
+        var w = window.innerWidth -20;
+        layer1.width = w;
+        layer1.height = w;
+
+        layer2.width = w;
+        layer2.height = w;
+
+        layer3.width = w;
+        layer3.height = w;
+
+        layer4.width = w;
+        layer4.height = w;
+
+        layer5.width = w;
+        layer5.height = w;
+    }else{
+        layer1.width = 500;
+        layer1.height = 500;
+
+        layer2.width = 500;
+        layer2.height = 500;
+
+        layer3.width = 500;
+        layer3.height = 500;
+
+        layer4.width = 500;
+        layer4.height = 500;
+
+        layer5.width = 500;
+        layer5.height = 500;
+    }
 
     setInterval(drawAll, 10);
     setTimeout(function(){
