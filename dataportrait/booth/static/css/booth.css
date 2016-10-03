@@ -93,14 +93,12 @@ form.code_form input {
     border: none;
     text-decoration: none;
     cursor:pointer;
+    display: inline-block;
+    min-width: 106px;
+    text-align: center;
 }
 
-a.button:hover {
-    color: white;
-    text-decoration: none;
-}
-
-a.button:active {
+a.button:hover, a.button:active, a.button:visited {
     color: white;
     text-decoration: none;
 }
