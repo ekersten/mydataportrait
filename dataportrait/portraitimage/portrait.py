@@ -67,7 +67,7 @@ def joinLayers(code, folder):
 
 
 def createCromaSelection(image):
-    cromaColor = (53,182,81)
+    cromaColor = (70,218,196)
     tolerance = 30
 
     cromaSelection = Selection.Selection.selectColor(image, cromaColor, tolerance);
