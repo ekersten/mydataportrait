@@ -67,13 +67,26 @@ def joinLayers(code, folder):
 
 
 def createCromaSelection(image):
-    cromaColor = (53,182,81)
+    #cromaColor = (64,176,120)
+    cromaColor = guessCromaColor(image)
     tolerance = 30
 
     cromaSelection = Selection.Selection.selectColor(image, cromaColor, tolerance);
     cromaSelection.invert()
     return cromaSelection
 
+#reads the first 10 pixels from the center downwards
+def guessCromaColor(image):
+    pixels = image.load()
+
+    sample = (0,0,0)
+    x = 40
+    for y in range(10):
+        pix = pixels[x,y]
+        print(pix)
+        sample = (sample[0] + pix[0], sample[1] + pix[1], sample[2] + pix[2])
+
+    return (sample[0]//10, sample[1]//10, sample[2]//10)
 
 def  createGrayScale(image, layerPath, lock):
     layerThread = baseLayer.baseThread('IDBase', lock , image.copy(), layerPath)
