@@ -72,7 +72,7 @@ class Photo(models.Model):
         # copy image with code name to target directory
         image_name, image_ext = os.path.splitext(self.image.path)
 
-        shutil.copyfile(self.image.path, target_dir + os.sep + self.code + '_base' + image_ext)
+        shutil.copyfile(self.image.path, target_dir + os.sep + self.code + '_base' + image_ext.lower())
 
 
     image_tag.short_description = 'Image'
