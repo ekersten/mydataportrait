@@ -10,4 +10,12 @@
         $('.isthisyou').hide();
         $('.is_not_me').show().removeClass('hidden');
     });
+
+    $(window).on('resize', resizeLayers);
+
+    function resizeLayers() {
+        $('.layers').height($('.layers').width());
+    }
+
+    resizeLayers();
 })(jQuery);
