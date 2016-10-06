@@ -6,6 +6,7 @@ var ctx2;
 var ctx3;
 var WIDTH = 900;
 var HEIGHT = 900;
+var MAXSCREENWIDTH = 900;
 var padding = 20;
 var layerCount = 5;
 var loadedImages = 0;
@@ -68,7 +69,7 @@ function init() {
     ctx5 = layer5.getContext("2d");
 
     /* image is always square */
-    if(window.innerWidth < 500){
+    if(window.innerWidth < MAXSCREENWIDTH){
         var w = window.innerWidth -20;
         layer1.width = w;
         layer1.height = w;
@@ -85,20 +86,20 @@ function init() {
         layer5.width = w;
         layer5.height = w;
     }else{
-        layer1.width = 500;
-        layer1.height = 500;
+        layer1.width = MAXSCREENWIDTH;
+        layer1.height = MAXSCREENWIDTH;
 
-        layer2.width = 500;
-        layer2.height = 500;
+        layer2.width = MAXSCREENWIDTH;
+        layer2.height = MAXSCREENWIDTH;
 
-        layer3.width = 500;
-        layer3.height = 500;
+        layer3.width = MAXSCREENWIDTH;
+        layer3.height = MAXSCREENWIDTH;
 
-        layer4.width = 500;
-        layer4.height = 500;
+        layer4.width = MAXSCREENWIDTH;
+        layer4.height = MAXSCREENWIDTH;
 
-        layer5.width = 500;
-        layer5.height = 500;
+        layer5.width = MAXSCREENWIDTH;
+        layer5.height = MAXSCREENWIDTH;
     }
 
     setInterval(drawAll, 10);
