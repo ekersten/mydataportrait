@@ -12,4 +12,7 @@ echo "Collecting static assets"
 python manage.py collectstatic --no-input
 echo "Deactivating virtualenv"
 deactivate
+echo "Deleting .pyc files"
+cd /home/development/projects/dataportrait
+find . -name '*.pyc' -type f -delete
 echo "Deploy complete!"
