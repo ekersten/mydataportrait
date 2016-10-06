@@ -51,16 +51,13 @@ function synchedInit(){
 
 function init() {
     layer1 = document.getElementById("layer1");
-    ctx1 = layer1.getContext("2d");
-    pos1 = [0, layer1.height]
+    ctx1 = layer1.getContext("2d");    
 
     layer2 = document.getElementById("layer2");
     ctx2 = layer2.getContext("2d");
-    pos2 = [0, -layer2.height]
 
     layer3 = document.getElementById("layer3");
     ctx3 = layer3.getContext("2d");
-    pos3 = [0, -layer3.height]
 
     layer4 = document.getElementById("layer4");
     ctx4 = layer4.getContext("2d");
@@ -101,6 +98,10 @@ function init() {
         layer5.width = MAXSCREENWIDTH;
         layer5.height = MAXSCREENWIDTH;
     }
+
+    pos1 = [0, layer1.height];
+    pos2 = [0, -layer2.height];
+    pos3 = [0, -layer3.height];
 
     setInterval(drawAll, 10);
     setTimeout(function(){
