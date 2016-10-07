@@ -83,8 +83,6 @@ def picture_generator(request, code, network):
                     # check GET param to avoid creating image.
                     # THIS IS ONLY FOR TESTING!!!
                     if request.GET.get('nogen', 0) == 0:
-                        print('calling onUpload')
-                        portrait.onUpload(code, portraitRel)
                         print('calling onRequest')
                         portrait.onRequest(code, portraitRel, network_text.upper())
                         print('calling joinLayers')

@@ -5,6 +5,7 @@ from django.db import models
 from django.conf import settings
 
 from PIL import Image
+from portraitimage import portrait
 
 
 class Photo(models.Model):
@@ -73,6 +74,9 @@ class Photo(models.Model):
         image_name, image_ext = os.path.splitext(self.image.path)
 
         shutil.copyfile(self.image.path, target_dir + os.sep + self.code + '_base' + image_ext.lower())
+
+        # call onUpload to save al layer
+        portrait.onUpload(self.code, os.path.join(settings.MEDIA_ROOT, 'uploads'))
 
 
     image_tag.short_description = 'Image'
