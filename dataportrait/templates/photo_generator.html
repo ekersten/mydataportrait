@@ -26,51 +26,41 @@
         <h1>#MyDataPortrait</h1>
     </div>
 </div>
-    {% if photo_path %}
+
     <div class="row">
         <div class="col-xs-12 text-center">
-            <img id="dataportrait" src="{{ photo_path }}" alt="#MyDataPortrait" style="max-width:500px">
-            <!--<div class="layers">
-                <canvas id="layer1" class="layer" style="z-index:0"></canvas>
-                <canvas id="layer4" class="layer" style="z-index:10"></canvas>
-                <canvas id="layer2" class="layer" style="z-index:20"></canvas>
-                <canvas id="layer3" class="layer" style="z-index:30"></canvas>
-                <canvas id="layer5" class="layer" style="z-index:40"></canvas>
-            </div>-->
-        </div>
-        <!--
-        <script>
-            {% for layer in layers %}
-                var layer{{ forloop.counter }}Src = "{{ layer }}";
-            {% endfor %}
-        </script>
-        <script type="text/javascript" src="{% static 'js/animationv2.js' %}"></script>-->
-    </div>
-    <div class="row share">
-        <div class="col-xs-12 share-text">
-            Share your #MyDataPortrait image using Facebook/Twitter/LinkedIn
+            <div class="portrait_container">
+                <img id="dataportrait" src="{% static 'img/transparent.png' %}" alt="#MyDataPortrait" style="max-width:500px">
+            </div>
+
         </div>
     </div>
-    <div class="row share">
-        <div class="col-xs-4 facebook">
-            <div class="fb-share-button" data-href="{{ base_url }}/portrait/{{ code }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
+    <div id="share_content" class="invisible">
+        <div class="row share">
+            <div class="col-xs-12 share-text">
+                Share your #MyDataPortrait image using Facebook/Twitter/LinkedIn
+            </div>
         </div>
-        <div class="col-xs-4 linkedin">
-            <script type="IN/Share" data-url="{{ base_url }}/portrait/{{ code }}"></script>
+        <div class="row share">
+            <div class="col-xs-4 facebook">
+                <div class="fb-share-button" data-href="{{ base_url }}/portrait/{{ code }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fstaging.wundermandatabooth.com%2F&amp;src=sdkpreparse">Share</a></div>
+            </div>
+            <div class="col-xs-4 linkedin">
+                <script type="IN/Share" data-url="{{ base_url }}/portrait/{{ code }}"></script>
+            </div>
+            <div class="col-xs-4 twitter">
+                <a href="https://twitter.com/intent/tweet?text=Check out #MyDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+            </div>
         </div>
-        <div class="col-xs-4 twitter">
-            <a href="https://twitter.com/intent/tweet?text=Check out #MyDataPortrait #DMA2016 {{ base_url }}{{ share_image }}" class="twitter-hashtag-button" data-show-count="false">Tweet</a>
+        <div class="row share">
+            <div class="col-xs-6 twitter text-right">
+                <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>
+            </div>
+            <div class="col-xs-6 twitter text-left">
+                <a class="button" onclick="window.print()">Print</a>
+            </div>
         </div>
     </div>
-    <div class="row share">
-        <div class="col-xs-6 twitter text-right">
-            <a href="{{ photo_path }}" download="{{ photo_path }}" title="Wunderman DataPortrait" class="button">Download</a>
-        </div>
-        <div class="col-xs-6 twitter text-left">
-            <a class="button" onclick="window.print()">Print</a>
-        </div>
-    </div>
-    {% endif %}
 
     {% if no_content_error %}
         <div class="row">
@@ -83,5 +73,10 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="{% static 'js/photo.js' %}"></script>
+<script type="text/javascript">
+window.mydataportrait = {
+    code: '{{ code }}'
+};
+</script>
+<script src="{% static 'js/photo_generator.js' %}"></script>
 {% endblock %}

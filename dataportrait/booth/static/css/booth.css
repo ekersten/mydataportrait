@@ -155,7 +155,10 @@ SOCIAL SHARES
 }
 #dataportrait{
     width: 100%;
+    background: #fff url('../img/ajax-loader.gif') no-repeat 50% 50%;
 }
+
+
 
 /* layered animation */
 .layers{

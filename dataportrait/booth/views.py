@@ -56,29 +56,42 @@ def generated_portrait(request, code):
     return render(request, 'generated_portrait.html', context)
 
 
-
 def picture_generator(request, code, network):
     context = Context({
         'base_url': request.build_absolute_uri().replace(request.get_full_path(), ''),
-        'share_image': get_image_url_for_code('1234')
+        'share_image': get_image_url_for_code(code),
+        'code': code,
+        'photo_path': settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
     })
 
     if not request.user.is_authenticated():
         return redirect(reverse('booth:index'))
 
-    if code and network:
-        code = str(code).lower()
+    return render(request, 'photo_generator.html', context)
+
+
+def create_picture(request):
+    response_data = {
+        'share_image': get_image_url_for_code('1234')
+    }
+
+    if not request.user.is_authenticated():
+        return HttpResponse('Unauthorized', status=401)
+
+    if request.method == 'POST':
+        code = request.POST.get('code', None)
+
         if code is not None:
+            code = str(code).lower()
             try:
                 photo = Photo.objects.get(code__iexact=code)
-                context['network'] = network
 
                 # generate portrait
                 portraitRel = os.path.join(settings.MEDIA_ROOT, 'uploads')
 
                 network_text = get_network_data(request)
                 if len(network_text) <= 0:
-                    context['no_content_error'] = True
+                    response_data['no_content_error'] = True
                 else:
                     # check GET param to avoid creating image.
                     # THIS IS ONLY FOR TESTING!!!
@@ -89,24 +102,25 @@ def picture_generator(request, code, network):
                         portrait.joinLayers(code, portraitRel)
 
                     print('photo complete, sending data to template')
-                    context['photo'] = portrait.getDataPortrait(portraitRel, code)
-                    context['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
+                    # response_data['photo'] = portrait.getDataPortrait(portraitRel, code)
+                    # response_data['photo_path'] = settings.MEDIA_URL + 'uploads/' + code + '/' + code + '_def.png'
 
                     #get layers filenames for animation
                     print('Code: ' + code)
-                    context['layers'] = [
-                        portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',1),
-                        portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',2),
-                        portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',3),
-                        portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',4),
-                        portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',5),
-                    ]
-                    context['code'] = code
+                    # response_data['layers'] = [
+                    #     portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',1),
+                    #     portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',2),
+                    #     portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',3),
+                    #     portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',4),
+                    #     portrait.getLayerURL(code, settings.MEDIA_URL + 'uploads/',5),
+                    # ]
+                    # response_data['code'] = code
             except Photo.DoesNotExist:
-                context['error'] = True
+                response_data['error'] = True
 
-            return render(request, 'photo_generator.html', context)
-
+            return JsonResponse(response_data)
+    else:
+        return HttpResponse('Method Not Allowed', status=405)
 
 def random_codes(request):
     if not request.user.is_superuser:
