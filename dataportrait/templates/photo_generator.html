@@ -37,13 +37,16 @@
                 <canvas id="layer3" class="layer" style="z-index:30"></canvas>
                 <canvas id="layer5" class="layer" style="z-index:40"></canvas>
             </div>
-            <script>
-                {% for layer in layers %}
-                    var layer{{ forloop.counter }}Src = "{{ layer }}";
-                {% endfor %}
-            </script>
-            <script type="text/javascript" src="{% static 'js/animationv2.js' %}"></script>
         </div>
+        <div class="row debug">
+            <img src="" id="debugImg">
+        </div>
+        <script>
+            {% for layer in layers %}
+                var layer{{ forloop.counter }}Src = "{{ layer }}";
+            {% endfor %}
+        </script>
+        <script type="text/javascript" src="{% static 'js/animationv2.js' %}"></script>
     </div>
     <div class="row share">
         <div class="col-xs-12 share-text">

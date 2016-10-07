@@ -271,3 +271,7 @@ def sanitize_social_text(social_text, banned_words=[]):
         social_text = social_text.replace(word, '')
 
     return social_text
+
+def test_animation(request):
+    context = Context({})
+    return render(request, 'test_animation.html', context)

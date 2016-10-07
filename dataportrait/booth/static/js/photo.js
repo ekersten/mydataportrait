@@ -14,7 +14,7 @@
     $(window).on('resize', resizeLayers);
 
     function resizeLayers() {
-        $('.layers').height($('.layers').width());
+        /*$('.layers').height($('.layers').width());*/
     }
 
     resizeLayers();

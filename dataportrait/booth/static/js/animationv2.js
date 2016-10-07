@@ -19,25 +19,25 @@ var pos1 = [0, 0];
 
 //second layer
 var layer2Img = new Image();
-layer1Img.onload = synchedInit;
+layer2Img.onload = synchedInit;
 layer2Img.src = layer3Src;
 var pos2 = [0, 0];
 
 //third layer
 var layer3Img = new Image();
-layer1Img.onload = synchedInit;
+layer3Img.onload = synchedInit;
 layer3Img.src = layer4Src;
 var pos4 = [0, 0];
 
 //fourth layer Opacity animation
 var layer4Img = new Image();
-layer1Img.onload = synchedInit;
+layer4Img.onload = synchedInit;
 layer4Img.src = layer2Src;
 var op4 = 0;
 
 //fifth layer
 var layer5Img = new Image();
-layer1Img.onload = synchedInit;
+layer5Img.onload = synchedInit;
 layer5Img.src = layer5Src;
 var op5 = 0;
 
@@ -51,7 +51,7 @@ function synchedInit(){
 
 function init() {
     layer1 = document.getElementById("layer1");
-    ctx1 = layer1.getContext("2d");    
+    ctx1 = layer1.getContext("2d");
 
     layer2 = document.getElementById("layer2");
     ctx2 = layer2.getContext("2d");
@@ -99,9 +99,9 @@ function init() {
         layer5.height = MAXSCREENWIDTH;
     }
 
-    pos1 = [0, layer1.height];
-    pos2 = [0, -layer2.height];
-    pos3 = [0, -layer3.height];
+    pos1 = [0, (layer1.height-1)];
+    pos2 = [0, layer2.height]
+    pos3 = [0, layer3.height];
 
     setInterval(drawAll, 10);
     setTimeout(function(){
@@ -120,49 +120,33 @@ function drawOp(){
     draw4();
 }
 
-/*function draw1() {
-    ctx1.clearRect(0, 0, WIDTH, HEIGHT);
-    ctx1.fillStyle = "#FAF7F8";
-    ctx1.beginPath();
-    ctx1.rect(0,0,WIDTH,HEIGHT);
-    ctx1.closePath();
-    ctx1.fill();
-    ctx1.fillStyle = "#444444";
-    ctx1.beginPath();
-    ctx1.arc(x, y, 10, 0, Math.PI*2, true);
-    ctx1.closePath();
-    ctx1.fill();
-
-    if (x + dx > WIDTH || x + dx < 0)
-        dx = -dx;
-    if (y + dy > HEIGHT || y + dy < 0)
-        dy = -dy;
-
-    x += dx;
-    y += dy;
-}*/
-
 function draw1() {
-    if(pos1[1] > 0){
+    if(pos1[1] > 1){
         ctx1.clearRect(0, 0, WIDTH, HEIGHT);
-        ctx1.drawImage(layer1Img, pos1[0], pos1[1], WIDTH, HEIGHT, 0, 0, layer1.width, layer1.height);
-        pos1[1] -=1;
+        var x = parseInt(pos1[0]);
+        var y = parseInt(pos1[1]);
+        ctx1.drawImage(layer1Img, x, y, WIDTH - x, HEIGHT - y, 0, 0, layer1.width-x, layer1.height- y);
+        pos1[1] -=2;
     }
 }
 
 function draw2() {
-    if(pos2[1] < 0){
+    if(pos2[1] > 0){
         ctx2.clearRect(0, 0, WIDTH, HEIGHT);
-        ctx2.drawImage(layer2Img, pos2[0], pos2[1], WIDTH, HEIGHT, 0, 0, layer2.width, layer2.height);
-        pos2[1] +=1;
+        var x = parseInt(pos2[0]);
+        var y = parseInt(pos2[1]);
+        ctx2.drawImage(layer2Img, pos2[0], pos2[1], WIDTH, HEIGHT);
+        pos2[1] -=2;
     }
 }
 
 function draw3() {
-    if(pos3[1] < 0){
+    if(pos3[1] > 0){
         ctx3.clearRect(0, 0, WIDTH, HEIGHT);
-        ctx3.drawImage(layer3Img, pos3[0], pos3[1], WIDTH, HEIGHT, 0, 0, layer3.width, layer3.height);
-        pos3[1] +=1;
+        var x = parseInt(pos3[0]);
+        var y = parseInt(pos3[1]);
+        ctx3.drawImage(layer3Img, pos3[0], pos3[1], WIDTH, HEIGHT);
+        pos3[1] -=2;
     }
 }
 

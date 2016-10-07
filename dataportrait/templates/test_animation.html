@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block outer_content %}
+{# show the picture in the body to hide everything else #}
+<img src="{{ photo_path }}" class="visible-print-block">
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>#MyDataPortrait</h1>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <img src="{{ photo_path }}" alt="#MyDataPortrait" style="max-width:500px">
+            <canvas id="layer1"></canvas>
+        </div>
+        <div class="row debug">
+            <img src="" id="debugImg">
+        </div>
+        <script>
+            var src = "/media/uploads/3ctu/3ctu_def.png";
+            var WIDTH = 900;
+            var HEIGHT = 900;
+
+            layer1 = document.getElementById("layer1");
+            ctx1 = layer1.getContext("2d");
+
+            var layer1Img = new Image();
+            layer1Img.onload = init;
+            layer1Img.src = src;
+            var pos1 = [0, 100];
+
+            layer1.width = WIDTH;
+            layer1.height = HEIGHT;
+
+            function init(){
+                ctx1.drawImage(layer1Img, parseInt(pos1[0]), parseInt(pos1[1]), WIDTH, HEIGHT - parseInt(pos1[1]), 0, 0, layer1.width, layer1.height);
+                //ctx1.clearRect(0, 0, WIDTH, HEIGHT);
+                pos1 = [0, 200];
+                //ctx1.drawImage(layer1Img, parseInt(pos1[0]), parseInt(pos1[1]), WIDTH, HEIGHT, 0, 0, layer1.width, layer1.height);
+                //setInterval(draw1, 10);    
+            }
+            
+
+            function draw1() {
+                if(pos1[1] > 0){
+                    ctx1.clearRect(0, 0, WIDTH, HEIGHT);
+                    ctx1.drawImage(layer1Img, parseInt(pos1[0]), parseInt(pos1[1]), WIDTH, HEIGHT, 0, 0, layer1.width, layer1.height);
+                    pos1[1] -=1;
+                }
+            }
+        </script>
+    </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/photo.js' %}"></script>
+{% endblock %}
