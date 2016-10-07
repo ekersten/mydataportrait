@@ -153,6 +153,9 @@ SOCIAL SHARES
 .share .button {
     font-size: 1.1em;
 }
+#dataportrait{
+    width: 100%;
+}
 
 /* layered animation */
 .layers{
