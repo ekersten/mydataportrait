@@ -83,6 +83,7 @@ def create_picture(request):
 
         if code is not None:
             code = str(code).lower()
+            response_data = { 'share_image': get_image_url_for_code(code) }
             try:
                 photo = Photo.objects.get(code__iexact=code)
 

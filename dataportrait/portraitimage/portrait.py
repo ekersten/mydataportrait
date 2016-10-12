@@ -41,8 +41,10 @@ def onRequest(code, folder, text):
     threads.append(layer3)
     layer4 = createLayer4(lock, grayLayer.copy(), selection, filenames[4], text)
     threads.append(layer4)
-    layer5 = createLayer5(lock, filenames[5], im.size)
-    threads.append(layer5)
+
+    ##Layer 5 creation deprecated, it is now a static file
+    #layer5 = createLayer5(lock, filenames[5], im.size)
+    #threads.append(layer5)
 
     for t in threads:
         t.join()
@@ -56,7 +58,10 @@ def joinLayers(code, folder):
     layer2 = Image.open(filenames[2]).convert('RGBA')
     layer3 = Image.open(filenames[3]).convert('RGBA')
     layer4 = Image.open(filenames[4]).convert('RGBA')
-    layer5 = Image.open(filenames[5]).convert('RGBA')
+
+    assetDir = os.path.join(settings.STATIC_ROOT, 'img')
+    l5File = os.path.join(assetDir, 'layer5.png')
+    layer5 = Image.open(l5File).convert('RGBA')
 
     out = Image.alpha_composite(layer2, layer3)
     out = Image.alpha_composite(out, layer4)
@@ -141,6 +146,7 @@ def createLayer4(lock, grayImage, cromaSelection, layerPath, text):
     return layerThread
 
 
+##DEPRECATED
 def createLayer5(lock, layerPath, size):
     assetDir = os.path.join(settings.STATIC_ROOT, 'img')
     files = []
