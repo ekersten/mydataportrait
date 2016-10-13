@@ -16,7 +16,7 @@
 
 {% block outer_content %}
 {# show the picture in the body to hide everything else #}
-<img src="{{ photo_path }}" class="visible-print-block">
+<img src="{% static 'img/transparent.png' %}" id="print_image" class="visible-print-block">
 {% endblock %}
 
 {% block content %}

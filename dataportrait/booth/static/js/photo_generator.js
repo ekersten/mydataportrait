@@ -38,6 +38,7 @@
         success: function(data) {
             console.log(data);
             $('#dataportrait').attr('src', data.share_image).css('background', '#fff').fadeOut(0).fadeIn();
+            $('#print_image').attr('src', data.share_image);
             $('#share_content').fadeIn();
         },
         error: function(msg) {
