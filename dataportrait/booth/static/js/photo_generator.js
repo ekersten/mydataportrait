@@ -37,10 +37,10 @@
         },
         success: function(data) {
             $('#dataportrait').on('load', function() {
-                $('#share_content').fadeIn();
+                $('#share_content').css('background', '#fff').fadeOut(0).fadeIn();
                 $('#dataportrait').fadeIn()
             });
-            $('#dataportrait').attr('src', data.share_image).css('background', '#fff').fadeOut(0);
+            $('#dataportrait').attr('src', data.share_image);
             $('#print_image').attr('src', data.share_image);
 
         },
