@@ -10,11 +10,22 @@ def onUpload(code, folder):
     cromaFile = os.path.join(folder, code, code + '_base.jpg')
     im = Image.open(cromaFile).convert('RGBA')
 
+    #get croma selection from the original image
+    selection = createCromaSelection(im.copy())
+
     lock = threading.Lock()
+    threads = []
     layerPath = getLayerFilename(code, folder, 0)
 
     layerThread = createGrayScale(im.copy(),layerPath, lock)
+    threads.append(layerThread)
+
     layerThread.join()
+
+    grayLayer = Image.open(layerPath).convert('RGBA')
+    layer2 = createLayer2(lock, grayLayer.copy(), selection, getLayerFilename(code, folder, 2))
+    threads.append(layer2)
+
     print("END On upload")
 
 def onRequest(code, folder, text):
@@ -35,8 +46,8 @@ def onRequest(code, folder, text):
 
     layer1 = createLayer1(lock, grayLayer.size, filenames[1], text, selection)
     threads.append(layer1)
-    layer2 = createLayer2(lock, grayLayer.copy(), selection, filenames[2])
-    threads.append(layer2)
+    #layer2 = createLayer2(lock, grayLayer.copy(), selection, filenames[2])
+    #threads.append(layer2)
     layer3 = createLayer3(lock, grayLayer.copy(), selection, filenames[3], text)
     threads.append(layer3)
     layer4 = createLayer4(lock, grayLayer.copy(), selection, filenames[4], text)
@@ -74,7 +85,7 @@ def joinLayers(code, folder):
 def createCromaSelection(image):
     #cromaColor = (64,176,120)
     cromaColor = guessCromaColor(image)
-    tolerance = 30
+    tolerance = 40
 
     cromaSelection = Selection.Selection.selectColor(image, cromaColor, tolerance);
     cromaSelection.invert()
@@ -84,14 +95,21 @@ def createCromaSelection(image):
 def guessCromaColor(image):
     pixels = image.load()
 
+    n = image.height // 2
     sample = (0,0,0)
     x = 40
-    for y in range(10):
+    for y in range(n):
         pix = pixels[x,y]
-        print(pix)
+        #print(pix)
         sample = (sample[0] + pix[0], sample[1] + pix[1], sample[2] + pix[2])
 
-    return (sample[0]//10, sample[1]//10, sample[2]//10)
+    x = image.width - 40
+    for y in range(n):
+        pix = pixels[x,y]
+        #print(pix)
+        sample = (sample[0] + pix[0], sample[1] + pix[1], sample[2] + pix[2])
+
+    return (sample[0]//(n*2), sample[1]//(n*2), sample[2]//(n*2))
 
 def  createGrayScale(image, layerPath, lock):
     layerThread = baseLayer.baseThread('IDBase', lock , image.copy(), layerPath)
