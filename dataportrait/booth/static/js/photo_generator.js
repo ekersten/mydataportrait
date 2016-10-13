@@ -36,10 +36,13 @@
             'code': window.mydataportrait.code
         },
         success: function(data) {
-            console.log(data);
-            $('#dataportrait').attr('src', data.share_image).css('background', '#fff').fadeOut(0).fadeIn();
+            $('#dataportrait').on('load', function() {
+                $('#share_content').fadeIn();
+                $('#dataportrait').fadeIn()
+            });
+            $('#dataportrait').attr('src', data.share_image).css('background', '#fff').fadeOut(0);
             $('#print_image').attr('src', data.share_image);
-            $('#share_content').fadeIn();
+
         },
         error: function(msg) {
             console.log(msg);
