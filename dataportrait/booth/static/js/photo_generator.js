@@ -37,8 +37,8 @@
         },
         success: function(data) {
             $('#dataportrait').on('load', function() {
-                $('#share_content').css('background', '#fff').fadeOut(0).fadeIn();
-                $('#dataportrait').fadeIn()
+                $('#share_content').fadeIn();
+                $('#dataportrait').css('background', '#fff').fadeOut(0).fadeIn();
             });
             $('#dataportrait').attr('src', data.share_image);
             $('#print_image').attr('src', data.share_image);
